@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Spółdzielnie{% endblock %}
+
+{% block body %}
+    {% if spoldzielnie %}
+        <table id="umowy" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Spółdzielnie</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% for spoldzielnia in spoldzielnie %}
+                <tr>
+                    <td>{{ spoldzielnia.getNazwa() }}</td>
+                    <td>
+                        <a href="/sbd-projekt/public/WyswietlSpoldzielnie/{{ spoldzielnia.getNazwa() }}" class="btn btn-dark">Szczegóły</a>
+                        <a href="/sbd-projekt/public/WyswietlSpoldzielnie/delete/{{ spoldzielnia.getNazwa() }}" class="btn btn-danger">Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak spółdzielni do wyświetlenia</p>
+    {% endif %}
+{% endblock %}

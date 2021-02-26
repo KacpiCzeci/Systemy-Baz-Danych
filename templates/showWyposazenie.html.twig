@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wyposażenie{% endblock %}
+
+{% block body %}
+    {% if wyposazenie %}
+        <table id="umowy" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Wyposażenie</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obiekt in wyposazenie %}
+                <tr>
+                    <td>{{ obiekt.getNazwa() }}</td>
+                    <td>
+                        <a href="/sbd-projekt/public/WyswietlWyposazenie/{{ obiekt.getId() }}" class="btn btn-dark">Szczegóły</a>
+                        <a href="/sbd-projekt/public/WyswietlWyposazenie/delete/{{ obiekt.getId() }}" class="btn btn-danger">Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak wyposażenia do wyświetlenia</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h1>Budynek</h1>
+
+    {% if budynki %}
+        <table id="lokator" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pole</th>
+                <th>Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Adres:</td>
+                <td>{{ budynki.getAdres() }}</td>
+            </tr>
+            <tr>
+                <td>Typ budynku:</td>
+                <td>{{ budynki.getTyp() }}</td>
+            </tr>
+            <tr>
+                <td>Nazwa spółdzielni:</td>
+                <td>{{ budynki.getNazwa() }}</td>
+            </tr>
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak budynków do wyświetlenia</p>
+    {% endif %}
+
+    <h1>Obiekty najmu</h1>
+
+    {% if obiektynajmu %}
+    {% for obiekt in obiektynajmu %}
+        <table id="lokator" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pole</th>
+                <th>Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Rodzaj obiektu:</td>
+                <td>{{ obiekt.getRodzajObiektu() }}</td>
+            </tr>
+            <tr>
+                <td>Powierzchnia:</td>
+                <td>{{ obiekt.getPowierzchnia() }}</td>
+            </tr>
+            <tr>
+                <td>Liczba pokoi:</td>
+                <td>{{ obiekt.getLiczbaPokoi() }}</td>
+            </tr>
+            <tr>
+                <td>Typ mieszkania:</td>
+                <td>{{ obiekt.getTypMieszkania() }}</td>
+            </tr>
+            <tr>
+                <td>Numer pokoju:</td>
+                <td>{{ obiekt.getNrPokoju() }}</td>
+            </tr>
+                        <tr>
+                <td>Numer mieszkania:</td>
+                <td>{{ obiekt.getNrMieszkania() }}</td>
+            </tr>
+            <tr>
+                <td>Adres:</td>
+                <td>{{ obiekt.getAdres() }}</td>
+            </tr>
+        </tbody>
+        </table>
+        {% endfor %}
+    {% else %}
+        <p>Brak obiektów najmu do wyświetlenia</p>
+    {% endif %}
+    
+    <h1>Spółdzielnia</h1>
+
+    {% if spoldzielnie %}
+        <table id="lokator" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pole</th>
+                <th>Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nazwa:</td>
+                <td>{{ spoldzielnie.getNazwa() }}</td>
+            </tr>
+            <tr>
+                <td>Adres:</td>
+                <td>{{ spoldzielnie.getAdres() }}</td>
+            </tr>
+            <tr>
+                <td>Numer telefonu:</td>
+                <td>{{ spoldzielnie.getNrTelefonu() }}</td>
+            </tr>
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak spółdzielni do wyświetlenia</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Umowy{% endblock %}
+
+{% block body %}
+    {% if obiektynajmu %}
+        <table id="umowy" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Obiekt Najmu</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% for obiekt in obiektynajmu %}
+                <tr>
+                    <td>{{ obiekt.getAdres() ~ " / " ~ obiekt.getNrMieszkania() }}</td>
+                    <td>
+                        <a href="/sbd-projekt/public/WyswietlObiektyNajmu/{{ obiekt.getMieszkanie() }}" class="btn btn-dark">Szczegóły</a>
+                        <a href="/sbd-projekt/public/WyswietlObiektyNajmu/delete/{{ obiekt.getMieszkanie() }}" class="btn btn-danger">Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak umów do wyświetlenia</p>
+    {% endif %}
+{% endblock %}

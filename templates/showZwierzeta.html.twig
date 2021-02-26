@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Zwierzęta{% endblock %}
+
+{% block body %}
+    {% if zwierzeta %}
+        <table id="umowy" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Zwierzęta</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for zwierze in zwierzeta %}
+                <tr>
+                    <td>{{ zwierze.getGatunek() }}</td>
+                    <td>
+                        <a href="/sbd-projekt/public/WyswietlZwierzeta/{{ zwierze.getId() }}" class="btn btn-dark">Szczegóły</a>
+                        <a href="/sbd-projekt/public/WyswietlZwierzeta/delete/{{ zwierze.getId() }}" class="btn btn-danger">Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak zwierząt do wyświetlenia</p>
+    {% endif %}
+{% endblock %}

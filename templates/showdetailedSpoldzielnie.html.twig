@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    
+    <h1>Spółdzielnia</h1>
+
+    {% if spoldzielnie %}
+        <table id="lokator" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pole</th>
+                <th>Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nazwa:</td>
+                <td>{{ spoldzielnie.getNazwa() }}</td>
+            </tr>
+            <tr>
+                <td>Adres:</td>
+                <td>{{ spoldzielnie.getAdres() }}</td>
+            </tr>
+            <tr>
+                <td>Numer telefonu:</td>
+                <td>{{ spoldzielnie.getNrTelefonu() }}</td>
+            </tr>
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak spółdzielni do wyświetlenia</p>
+    {% endif %}
+
+    <h1>Budynki</h1>
+
+    {% if budynki %}
+    {% for budynek in budynki %}
+        <table id="lokator" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pole</th>
+                <th>Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Adres:</td>
+                <td>{{ budynek.getAdres() }}</td>
+            </tr>
+            <tr>
+                <td>Typ budynku:</td>
+                <td>{{ budynek.getTyp() }}</td>
+            </tr>
+            <tr>
+                <td>Nazwa spółdzielni:</td>
+                <td>{{ budynek.getNazwa() }}</td>
+            </tr>
+        </tbody>
+        </table>
+        {% endfor %}
+    {% else %}
+        <p>Brak budynków do wyświetlenia</p>
+    {% endif %}
+{% endblock %}

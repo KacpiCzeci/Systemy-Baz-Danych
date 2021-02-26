@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <h1>Osoba</h1>
+
+    {% if osoby %}
+        <table id="lokator" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pole</th>
+                <th>Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>PESEL:</td>
+                <td>{{ osoby.getPESEL() }}</td>
+            </tr>
+            <tr>
+                <td>Imię:</td>
+                <td>{{ osoby.getImie() }}</td>
+            </tr>
+            <tr>
+                <td>Nazwisko:</td>
+                <td>{{ osoby.getNazwisko() }}</td>
+            </tr>
+            <tr>
+                <td>Numer telefonu:</td>
+                <td>{{ osoby.getNrtelefonu() }}</td>
+            </tr>
+            <tr>
+                <td>Adres:</td>
+                <td>{{ osoby.getAdres() }}</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>{{ osoby.getEmail() }}</td>
+            </tr>
+            <tr>
+                <td>Adres:</td>
+                <td>{{ osoby.getRodzajosoby() }}</td>
+            </tr>
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak osób do wyświetlenia</p>
+    {% endif %}
+    
+    <h1>Umowy jako Lokator</h1>
+
+    {% if umowylokator %}
+    {% for lokator in umowylokator %}
+        <table id="umowa" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pole</th>
+                <th>Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Numer umowy:</td>
+                <td>{{ lokator.getNrumowy() }}</td>
+            </tr>
+            <tr>
+                <td>Wynajem od:</td>
+                <td>{{ lokator.getWynajemod().format('d/m/y') }}</td>
+            </tr>
+            <tr>
+                <td>Wynajem do:</td>
+                <td>{{ lokator.getWynajemdo().format('d/m/y') }}</td>
+            </tr>
+            <tr>
+                <td>Data zawrcia umowy:</td>
+                <td>{{ lokator.getDatazawarciaumowy().format('d/m/y') }}</td>
+            </tr>
+            <tr>
+                <td>Rodzaj umowy:</td>
+                <td>{{ lokator.getRodzajumowy() }}</td>
+            </tr>
+        </tbody>
+        </table>
+        {% endfor %}
+    {% else %}
+        <p>Brak umów do wyświetlenia</p>
+    {% endif %}
+    
+    <h1>Umowy jako Wynajmujący</h1>
+
+    {% if umowywynajmujacy %}
+    {% for wynajmujacy in umowywynajmujacy %}
+        <table id="umowa" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pole</th>
+                <th>Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Numer umowy:</td>
+                <td>{{ wynajmujacy.getNrumowy() }}</td>
+            </tr>
+            <tr>
+                <td>Wynajem od:</td>
+                <td>{{ wynajmujacy.getWynajemod().format('d/m/y') }}</td>
+            </tr>
+            <tr>
+                <td>Wynajem do:</td>
+                <td>{{ wynajmujacy.getWynajemdo().format('d/m/y') }}</td>
+            </tr>
+            <tr>
+                <td>Data zawrcia umowy:</td>
+                <td>{{ wynajmujacy.getDatazawarciaumowy().format('d/m/y') }}</td>
+            </tr>
+            <tr>
+                <td>Rodzaj umowy:</td>
+                <td>{{ wynajmujacy.getRodzajumowy() }}</td>
+            </tr>
+        </tbody>
+        </table>
+        {% endfor %}
+    {% else %}
+        <p>Brak umów do wyświetlenia</p>
+    {% endif %}
+{% endblock %}

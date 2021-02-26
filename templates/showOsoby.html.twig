@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Osoby{% endblock %}
+
+{% block body %}
+    {% if osoby %}
+        <table id="umowy" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Osoby</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% for osoba in osoby %}
+                <tr>
+                    <td>{{ osoba.getPESEL() }}</td>
+                    <td>
+                        <a href="/sbd-projekt/public/WyswietlOsoby/{{ osoba.getPESEL() }}" class="btn btn-dark">Szczegóły</a>
+                        <a href="/sbd-projekt/public/WyswietlOsoby/delete/{{ osoba.getPESEL() }}" class="btn btn-danger">Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak osób do wyświetlenia</p>
+    {% endif %}
+{% endblock %}
