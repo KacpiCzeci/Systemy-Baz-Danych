@@ -74,6 +74,7 @@ class ObiektyNajmu
         
         $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Nieprawidłowy adres obiektu najmu']));
         $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres obiektu najmu']));
+        $metadata->addPropertyConstraint('Adres', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+[0-9]*$/', 'message' => 'Nieprawidłowy adres obiektu najmu']));
         
         $metadata->addPropertyConstraint('Powierzchnia', new Assert\NotNull(['message' => 'Nieprawidłowa wartość powierzchni']));
         $metadata->addPropertyConstraint('Powierzchnia', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowa wartość powierzchni']));

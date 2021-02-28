@@ -307,6 +307,7 @@
          * @Method({"GET", "POST"})
          */
         public function newOsoba(EntityManagerInterface $em, Request $request){
+            $nazwa = "Dodaj osobę";
 
             $form = $this->createForm(OsobyFormType::class);
 
@@ -321,7 +322,7 @@
                 return $this->redirectToRoute('newOsoba');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView()));
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -329,6 +330,7 @@
          * @Method({"GET", "POST"})
          */
         public function newBudynek(EntityManagerInterface $em, Request $request){
+            $nazwa = "Dodaj budynek";
 
             $form = $this->createForm(BudynkiFormType::class);
 
@@ -343,7 +345,7 @@
                 return $this->redirectToRoute('newBudynek');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView()));
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -351,6 +353,7 @@
          * @Method({"GET", "POST"})
          */
         public function newObiektNajmu(EntityManagerInterface $em, Request $request){
+            $nazwa = "Dodaj obiekt najmu";
 
             $form = $this->createForm(ObiektyNajmuFormType::class);
 
@@ -365,7 +368,7 @@
                 return $this->redirectToRoute('newObiektNajmu');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView()));
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -373,6 +376,7 @@
          * @Method({"GET", "POST"})
          */
         public function newSpoldzielnia(EntityManagerInterface $em, Request $request){
+            $nazwa = "Dodaj spółdzielnię";
 
             $form = $this->createForm(SpoldzielnieFormType::class);
 
@@ -387,7 +391,7 @@
                 return $this->redirectToRoute('newSpoldzielnia');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView()));
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -395,6 +399,7 @@
          * @Method({"GET", "POST"})
          */
         public function newUmowa(EntityManagerInterface $em, Request $request){
+            $nazwa = "Dodaj umowę";
 
             $form = $this->createForm(UmowyFormType::class);
 
@@ -409,7 +414,7 @@
                 return $this->redirectToRoute('newUmowa');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView()));
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -417,6 +422,7 @@
          * @Method({"GET", "POST"})
          */
         public function newWyposazenie(EntityManagerInterface $em, Request $request){
+            $nazwa = "Dodaj wyposażenie";
 
             $form = $this->createForm(WyposazenieFormType::class);
 
@@ -431,7 +437,7 @@
                 return $this->redirectToRoute('newWyposazenie');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView()));
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
         
         /**
@@ -439,6 +445,7 @@
          * @Method({"GET", "POST"})
          */
         public function newZwierze(EntityManagerInterface $em, Request $request){
+            $nazwa = "Dodaj zwierzę";
 
             $form = $this->createForm(ZwierzetaFormType::class);
 
@@ -454,6 +461,6 @@
                 return $this->redirectToRoute('newZwierze');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView()));
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
     }
