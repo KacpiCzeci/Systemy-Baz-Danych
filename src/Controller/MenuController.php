@@ -384,7 +384,7 @@
                 $em->persist($spoldzielnie);
                 $em->flush();
 
-                return $this->redirectToRoute('newSpoldzielnie');
+                return $this->redirectToRoute('newSpoldzielnia');
             }
             
             return $this->render('new.html.twig', array('form' => $form->createView()));
