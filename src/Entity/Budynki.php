@@ -15,23 +15,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Budynki
 {
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy adres")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długi adres budynku")
      * @ORM\Id
      * @ORM\Column(type="string", length=100)
      */
     private $Adres;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy typ budynku")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długa nazwa typu budynku")
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $Typ;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowa nazwa społdzielni")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długa nazwa spółdzielni")
      * @ORM\ManyToOne(targetEntity="Spoldzielnie")
      * @ORM\JoinColumn(name="Nazwa", referencedColumnName="nazwa")
      */
@@ -39,6 +33,19 @@ class Budynki
 
     public function __toString(){
         return $this->Adres;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Nieprawidłowy adres']));
+        $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres budynku']));
+        
+        $metadata->addPropertyConstraint('Typ', new Assert\NotNull(['message' => 'Nieprawidłowy typ budynku']));
+        $metadata->addPropertyConstraint('Typ', new Assert\Regex(['pattern'=> '/^[a-zA-Z]+$/', 'message' => 'Nieprawidłowy typ budynku']));
+        $metadata->addPropertyConstraint('Typ', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa typu budynku']));
+        
+        $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nieprawidłowa nazwa społdzielni']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa spółdzielni']));
     }
 
     public function getAdres()
@@ -70,6 +77,4 @@ class Budynki
     {
         $this->Nazwa = $Nazwa;
     }
-
-    
 }

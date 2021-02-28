@@ -18,38 +18,27 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Osoby
 {
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy PESEL")
-     * @Assert\Type(type = "numeric", message = "Nieprawidłowy PESEL")
-     * @Assert\GreaterThanOrEqual(value = 10000000000, message = "Nieprawidłowy PESEL")
-     * @Assert\LessThanOrEqual(value  = 99999999999, message = "Nieprawidłowy PESEL")
      * @ORM\Id
-     * @ORM\Column(type="decimal", precision=11)
+     * @ORM\Column(type="string", length=11)
      */
     private $PESEL;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowe imię")
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $Imie;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowe nazwisko")
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $Nazwisko;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy numer telefonu")
-     * @Assert\Type(type = "numeric", message = "Nieprawidłowy numer telefonu")
-     * @Assert\GreaterThanOrEqual(value = 100000000, message = "Nieprawidłowy numer telefonu")
-     * @Assert\LessThanOrEqual(value  = 999999999, message = "Nieprawidłowy numer telefonu")
-     * @ORM\Column(type="decimal", precision=9, nullable=false)
+     * @ORM\Column(type="string", length=9, nullable=false)
      */
     private $Nr_telefonu;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy adres")
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $Adres;
@@ -60,7 +49,6 @@ class Osoby
     private $Email;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy rodzaj osoby")
      * @ORM\Column(type="string", length=100, nullable=false, columnDefinition="ENUM('Lokator', 'Wynajmujacy')")
      */
     private $Rodzaj_osoby;
@@ -70,7 +58,34 @@ class Osoby
         return $this->getPESEL();
     }
 
-    public function getPESEL(): ?int
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('PESEL', new Assert\NotNull(['message' => 'Nieprawidłowy PESEL']));
+        $metadata->addPropertyConstraint('PESEL', new Assert\Regex(['pattern' => '/^[0-9]{11}$/', 'message' => 'Nieprawidłowy PESEL']));
+        
+        $metadata->addPropertyConstraint('Imie', new Assert\NotNull(['message' => 'Nieprawidłowe imię']));
+        $metadata->addPropertyConstraint('Imie', new Assert\Regex(['pattern'=> '/^[A-Z][a-z]+$/', 'message' => 'Nieprawidłowe imię']));
+        $metadata->addPropertyConstraint('Imie', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długie imię']));
+
+        $metadata->addPropertyConstraint('Nazwisko', new Assert\NotNull(['message' => 'Nieprawidłowe nazwisko']));
+        $metadata->addPropertyConstraint('Nazwisko', new Assert\Regex(['pattern'=> '/^[A-Z][a-z]+$/', 'message' => 'Nieprawidłowe nazwisko']));
+        $metadata->addPropertyConstraint('Nazwisko', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długie nazwisko']));
+        
+        $metadata->addPropertyConstraint('Nr_telefonu', new Assert\NotNull(['message' => 'Nieprawidłowy numer telefonu']));
+        $metadata->addPropertyConstraint('Nr_telefonu', new Assert\Regex(['pattern' => '/^[0-9]{9}$/', 'message' => 'Nieprawidłowy numer telefonu']));
+        
+        $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Nieprawidłowy adres']));
+        $metadata->addPropertyConstraint('Adres', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+[0-9]+$/', 'message' => 'Nieprawidłowy adres']));
+        $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres']));
+
+        $metadata->addPropertyConstraint('Email', new Assert\Regex(['pattern' => '/^.+@.+\..+$/', 'message' => 'Nieprawidłowy email']));
+        $metadata->addPropertyConstraint('Email', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa adres email']));
+        
+        $metadata->addPropertyConstraint('Rodzaj_osoby', new Assert\NotNull(['message' => 'Nieprawidłowy rodzaj osoby']));
+        $metadata->addPropertyConstraint('Rodzaj_osoby', new Assert\Length(['max' => 100, 'maxMessage' => 'Nieprawidłowy rodzaj osoby']));
+    }
+
+    public function getPESEL()
     {
         return $this->PESEL;
     }
@@ -80,75 +95,63 @@ class Osoby
         $this->PESEL = $PESEL;
     }
 
-    public function getImie(): ?string
+    public function getImie()
     {
         return $this->Imie;
     }
 
-    public function setImie(string $Imie): self
+    public function setImie(string $Imie)
     {
         $this->Imie = $Imie;
-
-        return $this;
     }
 
-    public function getNazwisko(): ?string
+    public function getNazwisko()
     {
         return $this->Nazwisko;
     }
 
-    public function setNazwisko(string $Nazwisko): self
+    public function setNazwisko(string $Nazwisko)
     {
         $this->Nazwisko = $Nazwisko;
-
-        return $this;
     }
 
-    public function getNrTelefonu(): ?int
+    public function getNrTelefonu()
     {
         return $this->Nr_telefonu;
     }
 
-    public function setNrTelefonu(int $Nr_telefonu): self
+    public function setNrTelefonu(int $Nr_telefonu)
     {
         $this->Nr_telefonu = $Nr_telefonu;
-
-        return $this;
     }
 
-    public function getAdres(): ?string
+    public function getAdres()
     {
         return $this->Adres;
     }
 
-    public function setAdres(string $Adres): self
+    public function setAdres(string $Adres)
     {
         $this->Adres = $Adres;
-
-        return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail()
     {
         return $this->Email;
     }
 
-    public function setEmail(?string $Email): self
+    public function setEmail(?string $Email)
     {
         $this->Email = $Email;
-
-        return $this;
     }
 
-    public function getRodzajOsoby(): ?string
+    public function getRodzajOsoby()
     {
         return $this->Rodzaj_osoby;
     }
 
-    public function setRodzajOsoby(string $Rodzaj_osoby): self
+    public function setRodzajOsoby(string $Rodzaj_osoby)
     {
         $this->Rodzaj_osoby = $Rodzaj_osoby;
-
-        return $this;
     }
 }

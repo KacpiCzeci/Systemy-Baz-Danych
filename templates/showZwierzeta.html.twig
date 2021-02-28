@@ -3,11 +3,17 @@
 {% block title %}Zwierzęta{% endblock %}
 
 {% block body %}
+<div class="cointainer">
+    <a href="/sbd-projekt/public/NoweZwierze" class="btn btn-primary btn-lg" role="button">Dodaj</a>
+    <button onClick="window.history.back();" class="btn btn-primary btn-lg" type="button">Cofnij</button>
+</div>
+
     {% if zwierzeta %}
         <table id="umowy" class="table table-striped">
         <thead>
             <tr>
                 <th>Zwierzęta</th>
+                <th>Umowa</th>
                 <th>Opcje</th>
             </tr>
         </thead>
@@ -15,6 +21,7 @@
             {% for zwierze in zwierzeta %}
                 <tr>
                     <td>{{ zwierze.getGatunek() }}</td>
+                    <td>Nr. {{ zwierze.getIdUmowy() }}</td>
                     <td>
                         <a href="/sbd-projekt/public/WyswietlZwierzeta/{{ zwierze.getId() }}" class="btn btn-dark">Szczegóły</a>
                         <a href="/sbd-projekt/public/WyswietlZwierzeta/delete/{{ zwierze.getId() }}" class="btn btn-danger">Usuń</a>

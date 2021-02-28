@@ -20,8 +20,7 @@
             $builder
             ->add('nazwa', TextType::class, array('attr' => array('class' => 'form-control')))
             ->add('ilosc', TextType::class, array('attr' => array('class' => 'form-control')))
-            ->add('Mieszkanie', EntityType::class, array('class' => ObiektyNajmu::class, 'attr' => array('class' => 'form-control')))
-            ->add('save', SubmitType::class, array('label' => 'Dodaj','attr' => array('class' => 'btn btn-primary mt-3')));
+            ->add('Mieszkanie', EntityType::class, array('class' => ObiektyNajmu::class, 'attr' => array('class' => 'form-control')));
         }
 
         public function configureOptions(OptionsResolver $resolver){

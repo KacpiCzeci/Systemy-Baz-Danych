@@ -3,24 +3,25 @@
 {% block title %}Umowy{% endblock %}
 
 {% block body %}
+<div class="cointainer">
+    <a href="/sbd-projekt/public/NowaUmowa" class="btn btn-primary btn-lg" role="button">Dodaj</a>
+    <button onClick="window.history.back();" class="btn btn-primary btn-lg" type="button">Cofnij</button>
+</div>
+
     {% if umowy %}
         <table id="umowy" class="table table-striped">
         <thead>
             <tr>
                 <th>Umowa</th>
+                <th>Status</h>
                 <th>Opcje</th>
             </tr>
         </thead>
         <tbody>
-            {% for message in app.flashes('error') %}
-            <div class="alert alert-error">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
-            </div>
-            {% endfor %}
             {% for umowa in umowy %}
                 <tr>
-                    <td>{{ umowa.getNrumowy() }}</td>
+                    <td>Nr. {{ umowa.getNrumowy() }}</td>
+                    <td>{% if umowa.getWynajemDo()>date() %}Aktywna{% else %}Nieaktywna{% endif %}</td>
                     <td>
                         <a href="/sbd-projekt/public/WyswietlUmowy/{{ umowa.getId() }}" class="btn btn-dark">Szczegóły</a>
                         <a href="/sbd-projekt/public/WyswietlUmowy/delete/{{ umowa.getId() }}" class="btn btn-danger">Usuń</a>
@@ -33,3 +34,4 @@
         <p>Brak umów do wyświetlenia</p>
     {% endif %}
 {% endblock %}
+

@@ -3,11 +3,17 @@
 {% block title %}Wyposażenie{% endblock %}
 
 {% block body %}
+<div class="cointainer">
+    <a href="/sbd-projekt/public/NoweWyposazenie" class="btn btn-primary btn-lg" role="button">Dodaj</a>
+    <button onClick="window.history.back();" class="btn btn-primary btn-lg" type="button">Cofnij</button>
+</div>
+
     {% if wyposazenie %}
         <table id="umowy" class="table table-striped">
         <thead>
             <tr>
                 <th>Wyposażenie</th>
+                <th>Mieszkanie</th>
                 <th>Opcje</th>
             </tr>
         </thead>
@@ -15,6 +21,7 @@
             {% for obiekt in wyposazenie %}
                 <tr>
                     <td>{{ obiekt.getNazwa() }}</td>
+                    <td>{{ obiekt.getMieszkanie() }}</td>
                     <td>
                         <a href="/sbd-projekt/public/WyswietlWyposazenie/{{ obiekt.getId() }}" class="btn btn-dark">Szczegóły</a>
                         <a href="/sbd-projekt/public/WyswietlWyposazenie/delete/{{ obiekt.getId() }}" class="btn btn-danger">Usuń</a>

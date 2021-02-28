@@ -23,51 +23,37 @@ class Umowy
     private $id;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy numer umowy")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długi numer umowy")
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $Nr_umowy;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowa data wynajmu")
      * @ORM\Column(type="date", nullable=false)
      */
     private $Wynajem_od;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowa data wynajmu")
-     * @Assert\Expression(expression = "this.getWynajemod() <= this.getWynajemdo()", message = "Data początku wynajmu jest poźniejsza niż data zakończenia")
      * @ORM\Column(type="date", nullable=false)
      */
     private $Wynajem_do;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowa data zawarcia umowy")
-     * @Assert\Expression(expression = "this.getDatazawarciaumowy() <= this.getWynajemod()", message = "Data zawarcia umowy jest poźniejsza niż data początku wynajmu")
      * @ORM\Column(type="date", nullable=false)
      */
     private $Data_zawarcia_umowy;
 
     /**
-    * @Assert\NotNull(message = "Nieprawidłowy rodzaj umowy")
-    * @Assert\Length(max = 100, maxMessage = "Zbyt długa nazwa rodzaju obiektu")
     * @ORM\Column(type="string", length=100, nullable=false, columnDefinition="ENUM('Krótkoterminowe', 'Długoterminowe')")
     */
     private $Rodzaj_umowy;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy PESEL lokatora")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długi PESEL lokatora")
      * @ORM\ManyToOne(targetEntity="Osoby")
      * @ORM\JoinColumn(name="Lokator", referencedColumnName="pesel")
      */
     private $Lokator;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy PESEL wynajmującego")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długi PESEL wynajmującego")
-     * @Assert\Expression(expression = "this.getWynajmujacy() != this.getLokator()", message = "PESEL lokatora i wynajmującego powinny być inne")
      * @ORM\ManyToOne(targetEntity="Osoby")
      * @ORM\JoinColumn(name="Wynajmujacy", referencedColumnName="pesel")
      */
@@ -82,6 +68,30 @@ class Umowy
     public function __toString()
     {
         return $this->getNrUmowy();
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('Nr_umowy', new Assert\NotNull(['message' => 'Nieprawidłowy numer umowy']));
+        $metadata->addPropertyConstraint('Nr_umowy', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi numer umowy']));
+
+        $metadata->addPropertyConstraint('Wynajem_od', new Assert\NotNull(['message' => 'Nieprawidłowa data wynajmu']));
+
+        $metadata->addPropertyConstraint('Wynajem_do', new Assert\NotNull(['message' => 'Nieprawidłowa data wynajmu']));
+        $metadata->addPropertyConstraint('Wynajem_do', new Assert\Expression(['expression' => 'this.getWynajemod() <= this.getWynajemdo()', 'message' => 'Data początku wynajmu jest poźniejsza niż data zakończenia']));
+
+        $metadata->addPropertyConstraint('Data_zawarcia_umowy', new Assert\NotNull(['message' => 'Nieprawidłowa data zawarcia umowy']));
+        $metadata->addPropertyConstraint('Data_zawarcia_umowy', new Assert\Expression(['expression' => 'this.getDatazawarciaumowy() <= this.getWynajemod()', 'message' => 'Data zawarcia umowy jest poźniejsza niż data początku wynajmu']));
+
+        $metadata->addPropertyConstraint('Rodzaj_umowy', new Assert\NotNull(['message' => 'Nieprawidłowy rodzaj umowy']));
+        $metadata->addPropertyConstraint('Rodzaj_umowy', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa rodzaju obiektu']));
+
+        $metadata->addPropertyConstraint('Lokator', new Assert\NotNull(['message' => 'Nieprawidłowy PESEL lokatora']));
+        $metadata->addPropertyConstraint('Lokator', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi PESEL lokatora']));
+        
+        $metadata->addPropertyConstraint('Wynajmujacy', new Assert\NotNull(['message' => 'Nieprawidłowy PESEL wynajmującego']));
+        $metadata->addPropertyConstraint('Wynajmujacy', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi PESEL wynajmującego']));
+        $metadata->addPropertyConstraint('Wynajmujacy', new Assert\Expression(['expression' => 'this.getWynajmujacy() != this.getLokator()', 'message' => 'PESEL lokatora i wynajmującego powinny być inne']));       
     }
 
     public function getId()

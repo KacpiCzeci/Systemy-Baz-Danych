@@ -22,24 +22,16 @@ class Wyposazenie
     private $id;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowa nazwa wyposażenia")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długa nazwa wyposażenia")
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $Nazwa;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowa ilość wyposażenia")
-     * @Assert\Type(type = "numeric", message = "Nieprawidłowa ilość wyposażenia")
-     * @Assert\GreaterThanOrEqual(value = 1, message = "Nieprawidłowa ilość wyposażenia")
-     * @Assert\LessThanOrEqual(value  = 99, message = "Nieprawidłowa ilość wyposażenia")
      * @ORM\Column(type="decimal", precision=2, nullable=false)
      */
     private $Ilosc;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy adres mieszkania")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długi adres mieszkania")
      * @ORM\ManyToOne(targetEntity="ObiektyNajmu")
      * @ORM\JoinColumn(name="Mieszkanie", referencedColumnName="mieszkanie")
      */
@@ -48,6 +40,22 @@ class Wyposazenie
     public function getId()
     {
         return $this->id;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nieprawidłowa nazwa wyposażenia']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa wyposażenia']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+$/', 'message' => 'Nieprawidłowa nazwa wyposażenia']));
+
+        $metadata->addPropertyConstraint('Ilosc', new Assert\NotNull(['message' => 'Nieprawidłowa ilość wyposażenia']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowa ilość wyposażenia']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'integer', 'message' => 'Nieprawidłowa ilość wyposażenia']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Nieprawidłowa ilość wyposażenia']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\LessThanOrEqual(['value' => 99, 'message' => 'Nieprawidłowa ilość wyposażenia']));
+
+        $metadata->addPropertyConstraint('Mieszkanie', new Assert\NotNull(['message' => 'Nieprawidłowy adres mieszkania']));
+        $metadata->addPropertyConstraint('Mieszkanie', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres mieszkania"']));
     }
 
     public function getNazwa()

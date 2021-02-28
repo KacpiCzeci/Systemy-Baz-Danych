@@ -9,8 +9,6 @@
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -35,12 +33,13 @@
     <h1>Obiekty najmu</h1>
 
     {% if obiektynajmu %}
+    {% set i = 1 %}
     {% for obiekt in obiektynajmu %}
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
+                <th>Obiekt najmu {{ i }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -74,6 +73,7 @@
             </tr>
         </tbody>
         </table>
+        {% set i = i + 1 %}
         {% endfor %}
     {% else %}
         <p>Brak obiektów najmu do wyświetlenia</p>
@@ -85,8 +85,6 @@
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>

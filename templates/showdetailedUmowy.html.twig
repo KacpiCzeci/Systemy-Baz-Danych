@@ -10,8 +10,6 @@
         <table id="umowa" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -47,8 +45,6 @@
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -92,8 +88,6 @@
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -137,8 +131,6 @@
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -179,12 +171,13 @@
     <h1>Zwierzęta</h1>
 
     {% if zwierzeta %}
+        {% set i = 1 %}
         {% for zwierze in zwierzeta %}
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
+                <th>Zwierze {{ i }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -198,6 +191,7 @@
             </tr>
         </tbody>
         </table>
+        {% set i = i + 1 %}
         {% endfor %}
     {% else %}
         <p>Brak zwierząt do wyświetlenia</p>

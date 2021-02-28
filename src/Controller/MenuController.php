@@ -110,26 +110,6 @@
         }
 
         /**
-         * @Route("/WyswietlUmowy/delete/{id}", name="deleteUmowy")
-         * @Method({"DELETE"})
-         */
-        public function deleteUmowy(Request $request, $id) {
-            $umowa = $this->getDoctrine()->getRepository(Umowy::class)->find($id);
-            $zwierzeta = $this->getDoctrine()->getRepository(Zwierzeta::class)->findBy(array('Id_umowy' => $umowa->getId()));
-            
-            if(count($zwierzeta) > 0){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz go usunąć.');
-                return $this->redirectToRoute('showUmowy');
-            }
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($umowa);
-            $entityManager->flush();
-  
-            return $this->redirectToRoute('showUmowy');
-        }
-
-        /**
          * @Route("/WyswietlObiektyNajmu/{id}", name="showdetailedObiektyNajmu")
          */
         public function showdetailedObiektyNajmu($id){
@@ -188,8 +168,27 @@
             return $this->render('showdetailedBudynki.html.twig', array('budynki' => $budynki, 'spoldzielnie' => $spoldzielnie, 'obiektynajmu' => $obiektynajmu));
         }
 
-                 /**
-         * @Route("/WyswietlOsoby/delete/{id}", name="deleteUmowy")
+        /**
+         * @Route("/WyswietlUmowy/delete/{id}", name="deleteUmowy")
+         * @Method({"GET"})
+         */
+        public function deleteUmowy(Request $request, $id) {
+            $umowa = $this->getDoctrine()->getRepository(Umowy::class)->find($id);
+            $zwierzeta = $this->getDoctrine()->getRepository(Zwierzeta::class)->findBy(array('Id_umowy' => $umowa->getId()));
+            
+            if(count($zwierzeta) > 0){
+                return $this->redirectToRoute('showUmowy');
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($umowa);
+            $entityManager->flush();
+  
+            return $this->redirectToRoute('showUmowy');
+        }
+
+        /**
+         * @Route("/WyswietlOsoby/delete/{id}", name="deleteOsoby")
          * @Method({"DELETE"})
          */
         public function deleteOsoby(Request $request, $id) {
@@ -318,6 +317,8 @@
 
                 $em->persist($osoby);
                 $em->flush();
+
+                return $this->redirectToRoute('newOsoba');
             }
             
             return $this->render('new.html.twig', array('form' => $form->createView()));
@@ -338,6 +339,8 @@
 
                 $em->persist($budynek);
                 $em->flush();
+
+                return $this->redirectToRoute('newBudynek');
             }
             
             return $this->render('new.html.twig', array('form' => $form->createView()));
@@ -358,6 +361,8 @@
 
                 $em->persist($obiektnajmu);
                 $em->flush();
+
+                return $this->redirectToRoute('newObiektNajmu');
             }
             
             return $this->render('new.html.twig', array('form' => $form->createView()));
@@ -378,6 +383,8 @@
 
                 $em->persist($spoldzielnie);
                 $em->flush();
+
+                return $this->redirectToRoute('newSpoldzielnie');
             }
             
             return $this->render('new.html.twig', array('form' => $form->createView()));
@@ -398,6 +405,8 @@
 
                 $em->persist($umowy);
                 $em->flush();
+
+                return $this->redirectToRoute('newUmowa');
             }
             
             return $this->render('new.html.twig', array('form' => $form->createView()));
@@ -418,6 +427,8 @@
 
                 $em->persist($wyposazenie);
                 $em->flush();
+
+                return $this->redirectToRoute('newWyposazenie');
             }
             
             return $this->render('new.html.twig', array('form' => $form->createView()));
@@ -439,6 +450,8 @@
 
                 $em->persist($zwierze);
                 $em->flush();
+
+                return $this->redirectToRoute('newZwierze');
             }
             
             return $this->render('new.html.twig', array('form' => $form->createView()));

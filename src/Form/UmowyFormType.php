@@ -28,8 +28,7 @@
             ->add('rodzaj_umowy', ChoiceType::class, array('choices' => ['Krótkoterminowe' => 'Krótkoterminowe', 'Długoterminowe' => 'Długoterminowe'], 'attr' => array('class' => 'form-control')))
             ->add('Lokator', EntityType::class, array('class' => Osoby::class, 'attr' => array('class' => 'form-control')))
             ->add('Wynajmujacy', EntityType::class, array('class' => Osoby::class, 'attr' => array('class' => 'form-control')))
-            ->add('Mieszkanie', EntityType::class, array('class' => ObiektyNajmu::class, 'attr' => array('class' => 'form-control')))
-            ->add('save', SubmitType::class, array('label' => 'Dodaj','attr' => array('class' => 'btn btn-primary mt-3')));
+            ->add('Mieszkanie', EntityType::class, array('class' => ObiektyNajmu::class, 'attr' => array('class' => 'form-control')));
         }
 
         public function configureOptions(OptionsResolver $resolver){

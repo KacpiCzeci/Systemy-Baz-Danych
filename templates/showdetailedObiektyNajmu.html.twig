@@ -10,8 +10,6 @@
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -55,8 +53,6 @@
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -84,8 +80,6 @@
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -113,8 +107,6 @@
         <table id="umowa" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -147,12 +139,13 @@
     <h1>Wyposażenie</h1>
 
     {% if wyposazenia %}
+    {% set i = 1 %}
         {% for wyposazenie in wyposazenia %}
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
+                <th>Wyposazenie {{ i }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -166,6 +159,7 @@
             </tr>
         </tbody>
         </table>
+        {% set i = i + 1 %}
         {% endfor %}
     {% else %}
         <p>Brak wyposażenia do wyświetlenia</p>

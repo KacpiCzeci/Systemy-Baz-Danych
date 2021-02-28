@@ -15,31 +15,36 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Spoldzielnie
 {
     /**
-     * @Assert\NotNull(message = "Nieprawidłowa nazwa spółdzielni")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długa nazwa społdzielni")
      * @ORM\Id
      * @ORM\Column(type="string", length=100)
      */
     private $Nazwa;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy adres spółdzielni")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długi adres społdzielni")
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $Adres;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy numer telefonu")
-     * @Assert\Type(type = "numeric", message = "Nieprawidłowy numer telefonu")
-     * @Assert\GreaterThanOrEqual(value = 100000000, message = "Nieprawidłowy numer telefonu")
-     * @Assert\LessThanOrEqual(value  = 999999999, message = "Nieprawidłowy numer telefonu")
      * @ORM\Column(type="decimal", precision=9, nullable=false)
      */
     private $Nr_telefonu;
 
     public function __toString(){
         return $this->Nazwa;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nieprawidłowa nazwa spółdzielni']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa społdzielni']));
+
+        $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Nieprawidłowy adres spółdzielni']));
+        $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres społdzielni']));
+        $metadata->addPropertyConstraint('Adres', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+[0-9]*$/', 'message' => 'Nieprawidłowy adres spółdzielni']));
+
+        $metadata->addPropertyConstraint('Nr_telefonu', new Assert\NotNull(['message' => 'Nieprawidłowy numer telefonu']));
+        $metadata->addPropertyConstraint('Nr_telefonu', new Assert\Regex(['pattern' => '/^[0-9]{9}$/', 'message' => 'Nieprawidłowy numer telefonu']));
     }
 
     public function getNazwa()

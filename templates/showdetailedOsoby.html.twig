@@ -10,8 +10,6 @@
         <table id="lokator" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -52,12 +50,13 @@
     <h1>Umowy jako Lokator</h1>
 
     {% if umowylokator %}
+    {% set i = 1 %}
     {% for lokator in umowylokator %}
         <table id="umowa" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
+                <th>Umowa {{ i }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -83,6 +82,7 @@
             </tr>
         </tbody>
         </table>
+        {% set i = i + 1 %}
         {% endfor %}
     {% else %}
         <p>Brak umów do wyświetlenia</p>
@@ -91,12 +91,13 @@
     <h1>Umowy jako Wynajmujący</h1>
 
     {% if umowywynajmujacy %}
+    {% set i = 1 %}
     {% for wynajmujacy in umowywynajmujacy %}
         <table id="umowa" class="table table-striped">
         <thead>
             <tr>
-                <th>Pole</th>
-                <th>Wartość</th>
+                <th>Umowa {{ i }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -122,6 +123,7 @@
             </tr>
         </tbody>
         </table>
+        {% set i = i + 1 %}
         {% endfor %}
     {% else %}
         <p>Brak umów do wyświetlenia</p>

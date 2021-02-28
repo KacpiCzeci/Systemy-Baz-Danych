@@ -26,8 +26,7 @@
             ->add('liczba_pokoi', TextType::class, array('invalid_message' => 'Nieprawidłowa liczba pokoi', 'required' => false, 'attr' => array('class' => 'form-control')))
             ->add('typ_mieszkania', TextType::class, array('invalid_message' => 'Nieprawidłowy typ mieszkania', 'required' => false, 'attr' => array('class' => 'form-control')))
             ->add('nr_pokoju', TextType::class, array('invalid_message' => 'Nieprawidłowy numer pokoju', 'required' => false, 'attr' => array('class' => 'form-control')))
-            ->add('Adres', EntityType::class, array('class' => Budynki::class, 'invalid_message' => 'Nieprawidłowy adres', 'attr' => array('class' => 'form-control')))
-            ->add('save', SubmitType::class, array('label' => 'Dodaj','attr' => array('class' => 'btn btn-primary mt-3')));
+            ->add('Adres', EntityType::class, array('class' => Budynki::class, 'invalid_message' => 'Nieprawidłowy adres', 'attr' => array('class' => 'form-control')));
         }
 
         public function configureOptions(OptionsResolver $resolver){

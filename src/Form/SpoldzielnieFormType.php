@@ -19,8 +19,7 @@
             $builder
             ->add('nazwa', TextType::class, array('invalid_message' => 'Nieprawidłowa nazwa spółdzielni', 'attr' => array('class' => 'form-control')))
             ->add('adres', TextType::class, array('invalid_message' => 'Nieprawidłowy adres spółdzielni', 'attr' => array('class' => 'form-control')))
-            ->add('nr_telefonu', TextType::class, array('invalid_message' => 'Nieprawidłowy numer telefonu', 'attr' => array('class' => 'form-control')))
-            ->add('save', SubmitType::class, array('label' => 'Dodaj','attr' => array('class' => 'btn btn-primary mt-3')));
+            ->add('nr_telefonu', TextType::class, array('invalid_message' => 'Nieprawidłowy numer telefonu', 'attr' => array('class' => 'form-control')));
         }
 
         public function configureOptions(OptionsResolver $resolver){

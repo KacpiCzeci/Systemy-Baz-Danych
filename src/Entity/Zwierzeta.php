@@ -22,27 +22,35 @@ class Zwierzeta
     private $id;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowy gatunek")
-     * @Assert\Length(max = 100, maxMessage = "Zbyt długa nazwa gatunku")
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $Gatunek;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowa ilość")
-     * @Assert\Type(type = "numeric", message = "Nieprawidłowa ilość")
-     * @Assert\GreaterThanOrEqual(value = 1, message = "Nieprawidłowa ilość")
-     * @Assert\LessThanOrEqual(value = 99, message = "Nieprawidłowa ilość")
      * @ORM\Column(type="decimal", precision=2, nullable=false)
      */
     private $Ilosc;
 
     /**
-     * @Assert\NotNull(message = "Nieprawidłowe id umowy")
      * @ORM\ManyToOne(targetEntity="Umowy")
      * @ORM\JoinColumn(name="Id_umowy", referencedColumnName="id")
      */
     private $Id_umowy;
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('Gatunek', new Assert\NotNull(['message' => 'Nieprawidłowy gatunek']));
+        $metadata->addPropertyConstraint('Gatunek', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa gatunku']));
+        $metadata->addPropertyConstraint('Gatunek', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+$/', 'message' => 'Nieprawidłowy gatunek']));
+
+        $metadata->addPropertyConstraint('Ilosc', new Assert\NotNull(['message' => 'Nieprawidłowa ilość']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowa ilość']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'integer', 'message' => 'Nieprawidłowa ilość']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Nieprawidłowa ilość']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\LessThanOrEqual(['value' => 99, 'message' => 'Nieprawidłowa ilość']));
+
+        $metadata->addPropertyConstraint('Mieszkanie', new Assert\NotNull(['message' => 'Nieprawidłowe id umowy']));
+    }
 
     public function getId()
     {
