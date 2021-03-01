@@ -26,7 +26,7 @@
 
         public function configureOptions(OptionsResolver $resolver){
             $resolver->setDefaults([
-                'data_class' => Budynki::class
+                'data_class' => Budynki::class,
             ]);
         }
     }

@@ -3,35 +3,56 @@
 {% block title %}Umowy{% endblock %}
 
 {% block body %}
-<div class="cointainer">
-    <a href="/sbd-projekt/public/NowaUmowa" class="btn btn-primary btn-lg" role="button">Dodaj</a>
-    <button onClick="window.history.back();" class="btn btn-primary btn-lg" type="button">Cofnij</button>
-</div>
+    <div class="cointainer">
+        <div class="row">
+            <div class="col">
 
-    {% if umowy %}
-        <table id="umowy" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Umowa</th>
-                <th>Status</h>
-                <th>Opcje</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for umowa in umowy %}
-                <tr>
-                    <td>Nr. {{ umowa.getNrumowy() }}</td>
-                    <td>{% if umowa.getWynajemDo()>date() %}Aktywna{% else %}Nieaktywna{% endif %}</td>
-                    <td>
-                        <a href="/sbd-projekt/public/WyswietlUmowy/{{ umowa.getId() }}" class="btn btn-dark">Szczegóły</a>
-                        <a href="/sbd-projekt/public/WyswietlUmowy/delete/{{ umowa.getId() }}" class="btn btn-danger">Usuń</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-    {% else %}
-        <p>Brak umów do wyświetlenia</p>
-    {% endif %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible p-3 fade show" role="alert">
+                        <h1></h1>
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger alert-dismissible p-3 fade show" role="alert">
+                        <h1></h1>
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+
+                <a href="/sbd-projekt/public/NowaUmowa" class="btn btn-primary btn-lg" role="button">Dodaj</a>
+                <a href="/sbd-projekt/public" class="btn btn-primary btn-lg" role="button">Cofnij</a>
+
+                {% if umowy %}
+                    <table id="umowy" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Umowa</th>
+                            <th>Status</h>
+                            <th>Opcje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for umowa in umowy %}
+                        <tr>
+                            <td>Nr. {{ umowa.getNrumowy() }}</td>
+                            <td>{% if umowa.getWynajemDo()>date() %}Aktywna{% else %}Nieaktywna{% endif %}</td>
+                            <td>
+                                <a href="/sbd-projekt/public/WyswietlUmowy/{{ umowa.getId() }}" class="btn btn-dark">Szczegóły</a>
+                                <a href="/sbd-projekt/public/WyswietlUmowy/delete/{{ umowa.getId() }}" class="btn btn-danger">Usuń</a>
+                            </td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+                {% else %}
+                    <p>Brak umów do wyświetlenia</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 

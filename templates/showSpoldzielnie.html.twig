@@ -3,34 +3,56 @@
 {% block title %}Spółdzielnie{% endblock %}
 
 {% block body %}
-<div class="cointainer">
-    <a href="/sbd-projekt/public/NowaSpoldzielnia" class="btn btn-primary btn-lg" role="button">Dodaj</a>
-    <button onClick="window.history.back();" class="btn btn-primary btn-lg" type="button">Cofnij</button>
-</div>
+    <div class="cointainer">
+        <div class="row">
+            <div class="col">
+            
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible p-3 fade show" role="alert">
+                        <h1></h1>
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
 
-    {% if spoldzielnie %}
-        <table id="umowy" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Spółdzielnie</th>
-                <th>Adres</th>
-                <th>Opcje</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for spoldzielnia in spoldzielnie %}
-                <tr>
-                    <td>{{ spoldzielnia.getNazwa() }}</td>
-                    <td>{{ spoldzielnia.getAdres() }}</td>
-                    <td>
-                        <a href="/sbd-projekt/public/WyswietlSpoldzielnie/{{ spoldzielnia.getNazwa() }}" class="btn btn-dark">Szczegóły</a>
-                        <a href="/sbd-projekt/public/WyswietlSpoldzielnie/delete/{{ spoldzielnia.getNazwa() }}" class="btn btn-danger">Usuń</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-    {% else %}
-        <p>Brak spółdzielni do wyświetlenia</p>
-    {% endif %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger alert-dismissible p-3 fade show" role="alert">
+                        <h1></h1>
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+
+                <a href="/sbd-projekt/public/NowaSpoldzielnia" class="btn btn-primary btn-lg" role="button">Dodaj</a>
+                <a href="/sbd-projekt/public" class="btn btn-primary btn-lg" role="button">Cofnij</a>
+
+                {% if spoldzielnie %}
+                    <table id="umowy" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Spółdzielnie</th>
+                            <th>Adres</th>
+                            <th>Opcje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for spoldzielnia in spoldzielnie %}
+                        <tr>
+                            <td>{{ spoldzielnia.getNazwa() }}</td>
+                            <td>{{ spoldzielnia.getAdres() }}</td>
+                            <td>
+                                <a href="/sbd-projekt/public/WyswietlSpoldzielnie/{{ spoldzielnia.getNazwa() }}" class="btn btn-dark">Szczegóły</a>
+                                <a href="/sbd-projekt/public/WyswietlSpoldzielnie/edit/{{ spoldzielnia.getNazwa() }}" class="btn btn-secondary">Edytuj</a>
+                                <a href="/sbd-projekt/public/WyswietlSpoldzielnie/delete/{{ spoldzielnia.getNazwa() }}" class="btn btn-danger">Usuń</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                {% else %}
+                    <p>Brak spółdzielni do wyświetlenia</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -100,7 +100,7 @@ class Osoby
         return $this->Imie;
     }
 
-    public function setImie(string $Imie)
+    public function setImie($Imie)
     {
         $this->Imie = $Imie;
     }
@@ -110,7 +110,7 @@ class Osoby
         return $this->Nazwisko;
     }
 
-    public function setNazwisko(string $Nazwisko)
+    public function setNazwisko($Nazwisko)
     {
         $this->Nazwisko = $Nazwisko;
     }
@@ -120,7 +120,7 @@ class Osoby
         return $this->Nr_telefonu;
     }
 
-    public function setNrTelefonu(int $Nr_telefonu)
+    public function setNrTelefonu($Nr_telefonu)
     {
         $this->Nr_telefonu = $Nr_telefonu;
     }
@@ -130,7 +130,7 @@ class Osoby
         return $this->Adres;
     }
 
-    public function setAdres(string $Adres)
+    public function setAdres($Adres)
     {
         $this->Adres = $Adres;
     }
@@ -140,7 +140,7 @@ class Osoby
         return $this->Email;
     }
 
-    public function setEmail(?string $Email)
+    public function setEmail($Email)
     {
         $this->Email = $Email;
     }
@@ -150,7 +150,7 @@ class Osoby
         return $this->Rodzaj_osoby;
     }
 
-    public function setRodzajOsoby(string $Rodzaj_osoby)
+    public function setRodzajOsoby($Rodzaj_osoby)
     {
         $this->Rodzaj_osoby = $Rodzaj_osoby;
     }

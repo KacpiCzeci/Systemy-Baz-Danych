@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210228005826 extends AbstractMigration
+final class Version20210301025257 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,7 +20,7 @@ final class Version20210228005826 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE budynki (adres VARCHAR(100) NOT NULL, typ VARCHAR(100) NOT NULL, Nazwa VARCHAR(100) DEFAULT NULL, INDEX IDX_5001ADE1A1D6D22A (Nazwa), PRIMARY KEY(adres)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE budynki (adres VARCHAR(100) NOT NULL, typ VARCHAR(100) NOT NULL, Nazwa VARCHAR(100) NOT NULL, INDEX IDX_5001ADE1A1D6D22A (Nazwa), PRIMARY KEY(adres)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE obiekty_najmu (mieszkanie INT AUTO_INCREMENT NOT NULL, nr_mieszkania NUMERIC(3, 0) NOT NULL, powierzchnia NUMERIC(7, 2) NOT NULL, rodzaj_obiektu ENUM(\'Mieszkanie\', \'Pokój\'), liczba_pokoi NUMERIC(2, 0) DEFAULT NULL, typ_mieszkania VARCHAR(100) DEFAULT NULL, nr_pokoju NUMERIC(3, 0) DEFAULT NULL, Adres VARCHAR(100) DEFAULT NULL, INDEX IDX_9C29F4DB9106E5EA (Adres), PRIMARY KEY(mieszkanie)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE osoby (pesel VARCHAR(11) NOT NULL, imie VARCHAR(100) NOT NULL, nazwisko VARCHAR(100) NOT NULL, nr_telefonu VARCHAR(9) NOT NULL, adres VARCHAR(100) NOT NULL, email VARCHAR(100) DEFAULT NULL, rodzaj_osoby ENUM(\'Lokator\', \'Wynajmujacy\'), PRIMARY KEY(pesel)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE spoldzielnie (nazwa VARCHAR(100) NOT NULL, adres VARCHAR(100) NOT NULL, nr_telefonu NUMERIC(9, 0) NOT NULL, PRIMARY KEY(nazwa)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

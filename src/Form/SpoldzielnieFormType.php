@@ -24,7 +24,7 @@
 
         public function configureOptions(OptionsResolver $resolver){
             $resolver->setDefaults([
-                'data_class' => Spoldzielnie::class
+                'data_class' => Spoldzielnie::class,
             ]);
         }
     }

@@ -17,6 +17,11 @@
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+    use Symfony\Component\Form\Extension\Core\Type\TextType;
+    use Symfony\Component\Form\Extension\Core\Type\NumberType;
+    use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+    use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
     use App\Form\BudynkiFormType;
     use App\Form\OsobyFormType;
     use App\Form\ObiektyNajmuFormType;
@@ -187,6 +192,40 @@
             return $this->redirectToRoute('showUmowy');
         }
 
+
+        /**
+         * @Route("/WyswietlSpoldzielnie/edit/{id}", name="editSpoldzielnie")
+         * Method({"GET", "POST"})
+         */
+        public function editSpoldzielnie(Request $request, $id) {
+            $spoldzielnie = new Spoldzielnie();
+            $spoldzielnie = $this->getDoctrine()->getRepository(Spoldzielnie::class)->find($id);
+            $nazwa = $spoldzielnie->getNazwa();
+            $budynki = $this->getDoctrine()->getRepository(Budynki::class)->findBy(array('Nazwa' => $spoldzielnie->getNazwa()));
+  
+            $form = $this->createForm(SpoldzielnieFormType::class, $spoldzielnie);
+
+            $form->handleRequest($request);
+
+            if(count($budynki) > 0 && $nazwa != $spoldzielnie->getNazwa()){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego nazwy.');
+                return $this->redirectToRoute('showSpoldzielnie');
+            }
+
+            if($form->isSubmitted() && $form->isValid()){
+                $spoldzielnie = $form->getData();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Zaktualizowano spółdzielnię w bazie danych!');
+
+                return $this->redirectToRoute('showSpoldzielnie');
+            }
+            
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'spoldzielnie' => $spoldzielnie));
+        }
+
         /**
          * @Route("/WyswietlOsoby/delete/{id}", name="deleteOsoby")
          * @Method({"DELETE"})
@@ -210,6 +249,8 @@
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($osoby);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Pomyślnie usunięto osobę z bazy danych!');
   
             return $this->redirectToRoute('showOsoby');
         }
@@ -230,6 +271,8 @@
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($obiektynajmu);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Pomyślnie usunięto obiekt najmu z bazy danych!');
   
             return $this->redirectToRoute('showObiektyNajmu');
         }
@@ -250,6 +293,8 @@
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($budynki);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Pomyślnie usunięto budynek z bazy danych!');
   
             return $this->redirectToRoute('showBudynki');
         }
@@ -270,6 +315,8 @@
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($spoldzielnie);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Pomyślnie usunięto spółdzielnię z bazy danych!');
   
             return $this->redirectToRoute('showSpoldzielnie');
         }
@@ -284,6 +331,8 @@
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($wyposazenie);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Pomyślnie usunięto wyposażenie z bazy danych!');
   
             return $this->redirectToRoute('showWyposazenie');
         }
@@ -298,6 +347,8 @@
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($zwierzeta);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Pomyślnie usunięto zwierzę z bazy danych!');
   
             return $this->redirectToRoute('showZwierzeta');
         }
@@ -318,6 +369,8 @@
 
                 $em->persist($osoby);
                 $em->flush();
+
+                $this->addFlash('success', 'Dodano nową osobę do bazy danych!');
 
                 return $this->redirectToRoute('newOsoba');
             }
@@ -342,6 +395,8 @@
                 $em->persist($budynek);
                 $em->flush();
 
+                $this->addFlash('success', 'Dodano nowy budynek do bazy danych!');
+
                 return $this->redirectToRoute('newBudynek');
             }
             
@@ -364,6 +419,8 @@
 
                 $em->persist($obiektnajmu);
                 $em->flush();
+
+                $this->addFlash('success', 'Dodano nowy obiekt najmu do bazy danych!');
 
                 return $this->redirectToRoute('newObiektNajmu');
             }
@@ -388,6 +445,8 @@
                 $em->persist($spoldzielnie);
                 $em->flush();
 
+                $this->addFlash('success', 'Dodano nową spółdzielnię do bazy danych!');
+
                 return $this->redirectToRoute('newSpoldzielnia');
             }
             
@@ -410,6 +469,8 @@
 
                 $em->persist($umowy);
                 $em->flush();
+
+                $this->addFlash('success', 'Dodano nową umowę do bazy danych!');
 
                 return $this->redirectToRoute('newUmowa');
             }
@@ -434,6 +495,8 @@
                 $em->persist($wyposazenie);
                 $em->flush();
 
+                $this->addFlash('success', 'Dodano nowe wyposażenie do bazy danych!');
+
                 return $this->redirectToRoute('newWyposazenie');
             }
             
@@ -457,6 +520,8 @@
 
                 $em->persist($zwierze);
                 $em->flush();
+
+                $this->addFlash('success', 'Dodano nowe zwierzę do bazy danych!');
 
                 return $this->redirectToRoute('newZwierze');
             }
