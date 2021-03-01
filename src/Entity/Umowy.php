@@ -93,7 +93,9 @@ class Umowy
         
         $metadata->addPropertyConstraint('Wynajmujacy', new Assert\NotNull(['message' => 'Nieprawidłowy PESEL wynajmującego']));
         $metadata->addPropertyConstraint('Wynajmujacy', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi PESEL wynajmującego']));
-        $metadata->addPropertyConstraint('Wynajmujacy', new Assert\Expression(['expression' => 'this.getWynajmujacy() != this.getLokator()', 'message' => 'PESEL lokatora i wynajmującego powinny być inne']));       
+        $metadata->addPropertyConstraint('Wynajmujacy', new Assert\Expression(['expression' => 'this.getWynajmujacy() != this.getLokator()', 'message' => 'PESEL lokatora i wynajmującego powinny być inne']));
+        
+        $metadata->addPropertyConstraint('Mieszkanie', new Assert\NotNull(['message' => 'Nieprawidłowa nazwa mieszkania']));
     }
 
     public function getId()

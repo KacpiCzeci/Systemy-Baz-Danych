@@ -43,15 +43,14 @@ class Zwierzeta
     {
         $metadata->addPropertyConstraint('Gatunek', new Assert\NotNull(['message' => 'Nieprawidłowy gatunek']));
         $metadata->addPropertyConstraint('Gatunek', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa gatunku']));
-        $metadata->addPropertyConstraint('Gatunek', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+$/', 'message' => 'Nieprawidłowy gatunek']));
+        $metadata->addPropertyConstraint('Gatunek', new Assert\Regex(['pattern' => '/^[^0-9]*$/', 'message' => 'Nieprawidłowy gatunek']));
 
         $metadata->addPropertyConstraint('Ilosc', new Assert\NotNull(['message' => 'Nieprawidłowa ilość']));
         $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowa ilość']));
-        $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'integer', 'message' => 'Nieprawidłowa ilość']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\Regex(['pattern' => '/^[0-9]{1,2}$/', 'message' => 'Nieprawidłowa ilość']));
         $metadata->addPropertyConstraint('Ilosc', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Nieprawidłowa ilość']));
-        $metadata->addPropertyConstraint('Ilosc', new Assert\LessThanOrEqual(['value' => 99, 'message' => 'Nieprawidłowa ilość']));
 
-        $metadata->addPropertyConstraint('Mieszkanie', new Assert\NotNull(['message' => 'Nieprawidłowe id umowy']));
+        $metadata->addPropertyConstraint('Id_umowy', new Assert\NotNull(['message' => 'Nieprawidłowe ID umowy']));
     }
 
     public function getId()

@@ -42,6 +42,7 @@
                             <td>{% if umowa.getWynajemDo()>date() %}Aktywna{% else %}Nieaktywna{% endif %}</td>
                             <td>
                                 <a href="/sbd-projekt/public/WyswietlUmowy/{{ umowa.getId() }}" class="btn btn-dark">Szczegóły</a>
+                                <a href="/sbd-projekt/public/WyswietlUmowy/edit/{{ umowa.getId() }}" class="btn btn-secondary">Edytuj</a>
                                 <a href="/sbd-projekt/public/WyswietlUmowy/delete/{{ umowa.getId() }}" class="btn btn-danger">Usuń</a>
                             </td>
                         </tr>

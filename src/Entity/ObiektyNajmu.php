@@ -68,13 +68,12 @@ class ObiektyNajmu
     {
         $metadata->addPropertyConstraint('Nr_mieszkania', new Assert\NotNull(['message' => 'Nieprawidłowy numer mieszkania']));
         $metadata->addPropertyConstraint('Nr_mieszkania', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowy numer mieszkania']));
-        $metadata->addPropertyConstraint('Nr_mieszkania', new Assert\Type(['type' => 'integer', 'message' => 'Nieprawidłowy numer mieszkania']));
+        $metadata->addPropertyConstraint('Nr_mieszkania', new Assert\Regex(['pattern' => '/^[0-9]{1,3}$/', 'message' => 'Nieprawidłowy numer mieszkania']));
         $metadata->addPropertyConstraint('Nr_mieszkania', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Nieprawidłowy numer mieszkania']));
         $metadata->addPropertyConstraint('Nr_mieszkania', new Assert\LessThanOrEqual(['value' => 999, 'message' => 'Nieprawidłowy numer mieszkania']));
         
         $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Nieprawidłowy adres obiektu najmu']));
         $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres obiektu najmu']));
-        $metadata->addPropertyConstraint('Adres', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+[0-9]*$/', 'message' => 'Nieprawidłowy adres obiektu najmu']));
         
         $metadata->addPropertyConstraint('Powierzchnia', new Assert\NotNull(['message' => 'Nieprawidłowa wartość powierzchni']));
         $metadata->addPropertyConstraint('Powierzchnia', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowa wartość powierzchni']));
@@ -85,19 +84,19 @@ class ObiektyNajmu
         $metadata->addPropertyConstraint('Rodzaj_obiektu', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa rodzaju obiektu']));
 
         $metadata->addPropertyConstraint('Liczba_pokoi', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowa liczba pokoi']));
-        $metadata->addPropertyConstraint('Liczba_pokoi', new Assert\Type(['type' => 'integer', 'message' => 'Nieprawidłowa liczba pokoi']));
+        $metadata->addPropertyConstraint('Liczba_pokoi', new Assert\Regex(['pattern' => '/^[0-9]{1,2}$/', 'message' => 'Nieprawidłowa liczba pokoi']));
         $metadata->addPropertyConstraint('Liczba_pokoi', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Nieprawidłowa liczba pokoi']));
         $metadata->addPropertyConstraint('Liczba_pokoi', new Assert\LessThanOrEqual(['value' => 99, 'message' => 'Nieprawidłowa liczba pokoi']));
-        $metadata->addPropertyConstraint('Liczba_pokoi', new Assert\Expression(['expression' => '!(this.getRodzajObiektu() == "Mieszkanie" and this.getLiczbaPokoi() == null)', 'message' => 'Uzupełnij liczbę pokoi']));
+        $metadata->addPropertyConstraint('Liczba_pokoi', new Assert\Expression(['expression' => '(this.getRodzajObiektu() == "Mieszkanie" and this.getLiczbaPokoi() != null) or (this.getRodzajObiektu() != "Mieszkanie" and this.getLiczbaPokoi() == null)', 'message' => 'Nieprawidłowa liczba pokoi']));
 
         $metadata->addPropertyConstraint('Typ_mieszkania', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa typu mieszkania']));
-        $metadata->addPropertyConstraint('Typ_mieszkania', new Assert\Expression(['expression' => '!(this.getRodzajObiektu() == "Mieszkanie" and this.getTypMieszkania() == null)', 'message' => 'Uzupełnij typ mieszkania']));
+        $metadata->addPropertyConstraint('Typ_mieszkania', new Assert\Expression(['expression' => '(this.getRodzajObiektu() == "Mieszkanie" and this.getTypMieszkania() != null) or (this.getRodzajObiektu() != "Mieszkanie" and this.getTypMieszkania() == null)', 'message' => 'Nieprawidłowy typ mieszkania']));
         
         $metadata->addPropertyConstraint('Nr_pokoju', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowy numer pokoju']));
-        $metadata->addPropertyConstraint('Nr_pokoju', new Assert\Type(['type' => 'integer', 'message' => 'Nieprawidłowy numer pokoju']));
+        $metadata->addPropertyConstraint('Nr_pokoju', new Assert\Regex(['pattern' => '/^[0-9]{1,3}$/', 'message' => 'Nieprawidłowy numer pokoju']));
         $metadata->addPropertyConstraint('Nr_pokoju', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Nieprawidłowy numer pokoju']));
         $metadata->addPropertyConstraint('Nr_pokoju', new Assert\LessThanOrEqual(['value' => 999, 'message' => 'Nieprawidłowy numer pokoju']));
-        $metadata->addPropertyConstraint('Nr_pokoju', new Assert\Expression(['expression' => '!(this.getRodzajObiektu() == "Pokój" and this.getNrPokoju() == null)', 'message' => 'Uzupełnij numer pokoju']));
+        $metadata->addPropertyConstraint('Nr_pokoju', new Assert\Expression(['expression' => '(this.getRodzajObiektu() == "Pokój" and this.getNrPokoju() != null) or (this.getRodzajObiektu() != "Pokój" and this.getNrPokoju() == null)', 'message' => 'Nieprawidłowy numer pokoju']));
     }
 
     public function getMieszkanie()

@@ -199,17 +199,18 @@
          */
         public function editSpoldzielnie(Request $request, $id) {
             $spoldzielnie = new Spoldzielnie();
+            $nazwa = "Edytuj spółdzielnię";
             $spoldzielnie = $this->getDoctrine()->getRepository(Spoldzielnie::class)->find($id);
-            $nazwa = $spoldzielnie->getNazwa();
+            $nazwap = $spoldzielnie->getNazwa();
             $budynki = $this->getDoctrine()->getRepository(Budynki::class)->findBy(array('Nazwa' => $spoldzielnie->getNazwa()));
   
             $form = $this->createForm(SpoldzielnieFormType::class, $spoldzielnie);
 
             $form->handleRequest($request);
 
-            if(count($budynki) > 0 && $nazwa != $spoldzielnie->getNazwa()){
+            if(count($budynki) > 0 && $nazwap != $spoldzielnie->getNazwa()){
                 $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego nazwy.');
-                return $this->redirectToRoute('showSpoldzielnie');
+                return $this->redirectToRoute('editSpoldzielnie', ['id' => $nazwap]);
             }
 
             if($form->isSubmitted() && $form->isValid()){
@@ -220,10 +221,205 @@
 
                 $this->addFlash('success', 'Zaktualizowano spółdzielnię w bazie danych!');
 
-                return $this->redirectToRoute('showSpoldzielnie');
+                return $this->redirectToRoute('editSpoldzielnie', ['id' => $spoldzielnie->getNazwa()]);
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'spoldzielnie' => $spoldzielnie));
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+        }
+
+        /**
+         * @Route("/WyswietlZwierzeta/edit/{id}", name="editZwierzeta")
+         * Method({"GET", "POST"})
+         */
+        public function editZwierzeta(Request $request, $id) {
+            $zwierzeta = new Zwierzeta();
+            $nazwa = "Edytuj zwierzęta";
+            $zwierzeta = $this->getDoctrine()->getRepository(Zwierzeta::class)->find($id);
+
+            $form = $this->createForm(ZwierzetaFormType::class, $zwierzeta);
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $zwierzeta = $form->getData();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Zaktualizowano zwierzę w bazie danych!');
+
+                return $this->redirectToRoute('editZwierzeta', ['id' => $zwierzeta->getId()]);
+            }
+            
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+        }
+
+        /**
+         * @Route("/WyswietlWyposazenie/edit/{id}", name="editWyposazenia")
+         * Method({"GET", "POST"})
+         */
+        public function editWyposazenia(Request $request, $id) {
+            $wyposazenia = new Wyposazenie();
+            $nazwa = "Edytuj wyposażenie";
+            $wyposazenia = $this->getDoctrine()->getRepository(Wyposazenie::class)->find($id);
+
+            $form = $this->createForm(WyposazenieFormType::class, $wyposazenia);
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $wyposazenia = $form->getData();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Zaktualizowano wyposażenie w bazie danych!');
+
+                return $this->redirectToRoute('editWyposazenia', ['id' => $wyposazenia->getId()]);
+            }
+            
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+        }
+
+        /**
+         * @Route("/WyswietlBudynki/edit/{id}", name="editBudynki")
+         * Method({"GET", "POST"})
+         */
+        public function editBudynki(Request $request, $id) {
+            $budynki = new Budynki();
+            $nazwa = "Edytuj budynek";
+            $budynki = $this->getDoctrine()->getRepository(Budynki::class)->find($id);
+            $adres = $budynki->getAdres();
+            $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->findBy(array('Adres' => $budynki->getAdres()));
+  
+            $form = $this->createForm(BudynkiFormType::class, $budynki);
+
+            $form->handleRequest($request);
+
+            if(count($obiektynajmu) > 0 && $adres != $budynki->getAdres()){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego adresu.');
+                return $this->redirectToRoute('editBudynki', ['id' => $adres]);
+            }
+
+            if($form->isSubmitted() && $form->isValid()){
+                $budynki = $form->getData();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Zaktualizowano budynek w bazie danych!');
+
+                return $this->redirectToRoute('editBudynki', ['id' => $budynki->Adres()]);
+            }
+            
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+        }
+
+        /**
+         * @Route("/WyswietlObiektyNajmu/edit/{id}", name="editObiektyNajmu")
+         * Method({"GET", "POST"})
+         */
+        public function editObiektyNajmu(Request $request, $id) {
+            $obiektynajmu = new ObiektyNajmu();
+            $nazwa = "Edytuj obiekt najmu";
+            $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->find($id);
+            $mieszkanie = $obiektynajmu->getMieszkanie();
+            $adres = $obiektynajmu->getadres();
+            $nrmieszkania = $obiektynajmu->getNrMieszkania();
+            $wyposazenie = $this->getDoctrine()->getRepository(Wyposazenie::class)->findBy(array('Mieszkanie' => $obiektynajmu->getMieszkanie()));
+            $umowy = $this->getDoctrine()->getRepository(Umowy::class)->findBy(array('Mieszkanie' => $obiektynajmu->getMieszkanie()));
+  
+            $form = $this->createForm(ObiektyNajmuFormType::class, $obiektynajmu);
+
+            $form->handleRequest($request);
+
+            if((count($wyposazenie) > 0 || count($umowy) > 0) && ($adres != $obiektynajmu->getAdres() || $nrmieszkania != $obiektynajmu->getNrMieszkania())){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego adresu.');
+                return $this->redirectToRoute('editObiektyNajmu', ['id' => $mieszkanie]);
+            }
+
+            if($form->isSubmitted() && $form->isValid()){
+                $obiektynajmu = $form->getData();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Zaktualizowano obiekt najmu w bazie danych!');
+
+                return $this->redirectToRoute('editObiektyNajmu', ['id' => $obiektynajmu->getMieszkanie()]);
+            }
+            
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+        }
+
+        /**
+         * @Route("/WyswietlUmowy/edit/{id}", name="editUmowy")
+         * Method({"GET", "POST"})
+         */
+        public function editUmowy(Request $request, $id) {
+            $umowy = new Umowy();
+            $nazwa = "Edytuj umowę";
+            $umowy = $this->getDoctrine()->getRepository(Umowy::class)->find($id);
+            $idx = $umowy->getId();
+            $nrumowy = $umowy->getNrUmowy();
+            $zwierze = $this->getDoctrine()->getRepository(Zwierzeta::class)->findBy(array('Id_umowy' => $umowy->getId()));
+  
+            $form = $this->createForm(UmowyFormType::class, $umowy);
+
+            $form->handleRequest($request);
+
+            if(count($zwierze) > 0 && $nrumowy != $umowy->getNrUmowy()){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego numeru.');
+                return $this->redirectToRoute('editUmowy', ['id' => $idx]);
+            }
+
+            if($form->isSubmitted() && $form->isValid()){
+                $umowy = $form->getData();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Zaktualizowano umowę w bazie danych!');
+
+                return $this->redirectToRoute('editUmowy', ['id' => $umowy->getId()]);
+            }
+            
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+        }
+
+        /**
+         * @Route("/WyswietlOsoby/edit/{id}", name="editOsoby")
+         * Method({"GET", "POST"})
+         */
+        public function editOsoby(Request $request, $id) {
+            $osoby = new Osoby();
+            $nazwa = "Edytuj osobę";
+            $osoby = $this->getDoctrine()->getRepository(Osoby::class)->find($id);
+            $pesel = $osoby->getPESEL();
+            $lokator = $this->getDoctrine()->getRepository(Umowy::class)->findBy(array('Lokator' => $osoby->getPESEL()));
+            $wynajmujacy = $this->getDoctrine()->getRepository(Umowy::class)->findBy(array('Wynajmujacy' => $osoby->getPESEL()));
+  
+            $form = $this->createForm(OsobyFormType::class, $osoby);
+
+            $form->handleRequest($request);
+
+            if((count($lokator) > 0 || count($wynajmujacy) > 0) && $pesel != $osoby->getPESEL()){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego PESELU.');
+                return $this->redirectToRoute('editOsoby', ['id' => $pesel]);
+            }
+
+            if($form->isSubmitted() && $form->isValid()){
+                $osoby = $form->getData();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Zaktualizowano osobę w bazie danych!');
+
+                return $this->redirectToRoute('editOsoby', ['id' =>  $osoby->getPESEL()]);
+            }
+            
+            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**

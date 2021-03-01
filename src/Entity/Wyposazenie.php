@@ -52,9 +52,8 @@ class Wyposazenie
 
         $metadata->addPropertyConstraint('Ilosc', new Assert\NotNull(['message' => 'Nieprawidłowa ilość wyposażenia']));
         $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowa ilość wyposażenia']));
-        $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'integer', 'message' => 'Nieprawidłowa ilość wyposażenia']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\Regex(['pattern' => '/^[0-9]{1,2}$/', 'message' => 'Nieprawidłowa ilość wyposażenia']));
         $metadata->addPropertyConstraint('Ilosc', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Nieprawidłowa ilość wyposażenia']));
-        $metadata->addPropertyConstraint('Ilosc', new Assert\LessThanOrEqual(['value' => 99, 'message' => 'Nieprawidłowa ilość wyposażenia']));
 
         $metadata->addPropertyConstraint('Mieszkanie', new Assert\NotNull(['message' => 'Nieprawidłowy adres mieszkania']));
         $metadata->addPropertyConstraint('Mieszkanie', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres mieszkania"']));
