@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{ form_start(form) }}
+                {% if nazwa is defined %}
+                    <h1>{{ nazwa }}</h1>
+                {% endif %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger alert-dismissible p-3 fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible p-3 fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+                <h1></h1>
+                <h5>Nazwa spółdzielni</h5>
+                {{ form_widget(form.Nazwa) }}
+                {% if form.Nazwa.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Nazwa) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Adres spółdzielni</h5>
+                {{ form_widget(form.Adres) }}
+                {% if form.Adres.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Adres) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Numer telefonu</h5>
+                {{ form_widget(form.Nr_telefonu) }}
+                {% if form.Nr_telefonu.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Nr_telefonu) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <button class="btn btn-primary btn-lg" type="submit">Dodaj</button>
+                <a href="/sbd-projekt/public" class="btn btn-primary btn-lg" role="button">Cofnij</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

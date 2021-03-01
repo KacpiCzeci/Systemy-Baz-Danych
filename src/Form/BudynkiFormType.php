@@ -19,8 +19,8 @@
 
         public function buildForm(FormBuilderInterface $builder, array $options){
             $builder
-            ->add('adres', TextType::class, array('invalid_message' => 'Nieprawidłowy adres', 'attr' => array('class' => 'form-control')))
-            ->add('typ', TextType::class, array('invalid_message' => 'Nieprawidłowy typ', 'attr' => array('class' => 'form-control')))
+            ->add('Adres', TextType::class, array('invalid_message' => 'Nieprawidłowy adres', 'attr' => array('class' => 'form-control')))
+            ->add('Typ', TextType::class, array('invalid_message' => 'Nieprawidłowy typ', 'attr' => array('class' => 'form-control')))
             ->add('Nazwa', EntityType::class, array('class' => Spoldzielnie::class, 'choice_label' => 'getNazwa', 'invalid_message' => 'Nieprawidłowa nazwa', 'attr' => array('class' => 'form-control')));
         }
 

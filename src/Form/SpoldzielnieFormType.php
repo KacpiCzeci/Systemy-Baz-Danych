@@ -17,9 +17,9 @@
 
         public function buildForm(FormBuilderInterface $builder, array $options){
             $builder
-            ->add('nazwa', TextType::class, array('invalid_message' => 'Nieprawidłowa nazwa spółdzielni', 'attr' => array('class' => 'form-control')))
-            ->add('adres', TextType::class, array('invalid_message' => 'Nieprawidłowy adres spółdzielni', 'attr' => array('class' => 'form-control')))
-            ->add('nr_telefonu', TextType::class, array('invalid_message' => 'Nieprawidłowy numer telefonu', 'attr' => array('class' => 'form-control')));
+            ->add('Nazwa', TextType::class, array('invalid_message' => 'Nieprawidłowa nazwa spółdzielni', 'attr' => array('class' => 'form-control')))
+            ->add('Adres', TextType::class, array('invalid_message' => 'Nieprawidłowy adres spółdzielni', 'attr' => array('class' => 'form-control')))
+            ->add('Nr_telefonu', TextType::class, array('invalid_message' => 'Nieprawidłowy numer telefonu', 'attr' => array('class' => 'form-control')));
         }
 
         public function configureOptions(OptionsResolver $resolver){

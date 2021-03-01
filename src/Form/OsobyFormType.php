@@ -22,12 +22,12 @@
         public function buildForm(FormBuilderInterface $builder, array $options){
             $builder
             ->add('PESEL', TextType::class, array('invalid_message' => 'Nieprawidłowy PESEL', 'attr' => array('class' => 'form-control')))
-            ->add('imie', TextType::class, array('invalid_message' => 'Nieprawidłowe imię', 'attr' => array('class' => 'form-control')))
-            ->add('nazwisko', TextType::class, array('invalid_message' => 'Nieprawidłowe nazwisko', 'attr' => array('class' => 'form-control')))
-            ->add('nr_telefonu', TextType::class, array('invalid_message' => 'Nieprawidłowy numer telefonu', 'attr' => array('class' => 'form-control')))
-            ->add('adres', TextType::class, array('invalid_message' => 'Nieprawidłowy adres', 'attr' => array('class' => 'form-control')))
-            ->add('email', TextType::class, array('invalid_message' => 'Nieprawidłowy e-mail', 'required' => false, 'attr' => array('class' => 'form-control')))
-            ->add('rodzaj_osoby', ChoiceType::class, array('choices' => ['Lokator' => 'Lokator', 'Wynajmujący' => 'Wynajmujący'], 'attr' => array('class' => 'form-control')));
+            ->add('Imie', TextType::class, array('invalid_message' => 'Nieprawidłowe imię', 'attr' => array('class' => 'form-control')))
+            ->add('Nazwisko', TextType::class, array('invalid_message' => 'Nieprawidłowe nazwisko', 'attr' => array('class' => 'form-control')))
+            ->add('Nr_telefonu', TextType::class, array('invalid_message' => 'Nieprawidłowy numer telefonu', 'attr' => array('class' => 'form-control')))
+            ->add('Adres', TextType::class, array('invalid_message' => 'Nieprawidłowy adres', 'attr' => array('class' => 'form-control')))
+            ->add('Email', TextType::class, array('invalid_message' => 'Nieprawidłowy e-mail', 'required' => false, 'attr' => array('class' => 'form-control')))
+            ->add('Rodzaj_osoby', ChoiceType::class, array('choices' => ['Lokator' => 'Lokator', 'Wynajmujący' => 'Wynajmujący'], 'attr' => array('class' => 'form-control')));
         }
 
         public function configureOptions(OptionsResolver $resolver){

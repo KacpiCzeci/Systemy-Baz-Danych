@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=BudynkiRepository::class)
- * @UniqueEntity("Adres", message = "Istnieje już budynek pod takim adresem")
  */
 class Budynki
 {
@@ -39,6 +38,8 @@ class Budynki
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
+        $metadata->addConstraint(new UniqueEntity(['fields' => 'Adres', 'message' => 'Istnieje już budynek pod takim adresem']));
+
         $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Nieprawidłowy adres']));
         $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres budynku']));
         

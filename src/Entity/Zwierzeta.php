@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ZwierzetaRepository::class)
- * @UniqueEntity(fields={"Gatunek", "Id_umowy"}, message="Istnieją już takie zwierzeta przypisane do konkretnej umowy")
  */
 class Zwierzeta
 {
@@ -41,6 +40,8 @@ class Zwierzeta
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
+        $metadata->addConstraint(new UniqueEntity(['fields' => ['Gatunek', 'Id_umowy'], 'message' => 'Istnieją już takie zwierzeta przypisane do konkretnej umowy']));
+
         $metadata->addPropertyConstraint('Gatunek', new Assert\NotNull(['message' => 'Nieprawidłowy gatunek']));
         $metadata->addPropertyConstraint('Gatunek', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa gatunku']));
         $metadata->addPropertyConstraint('Gatunek', new Assert\Regex(['pattern' => '/^[^0-9]*$/', 'message' => 'Nieprawidłowy gatunek']));

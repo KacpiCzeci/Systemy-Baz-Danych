@@ -10,10 +10,8 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
  * @ORM\Entity(repositoryClass=OsobyRepository::class)
- * @UniqueEntity("PESEL", message = "Istnieje już osoba o takim PESELU")
  */
 class Osoby
 {
@@ -60,6 +58,8 @@ class Osoby
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
+        $metadata->addConstraint(new UniqueEntity(['fields' => 'PESEL', 'message' => 'Istnieje już osoba o takim PESELU']));
+
         $metadata->addPropertyConstraint('PESEL', new Assert\NotNull(['message' => 'Nieprawidłowy PESEL']));
         $metadata->addPropertyConstraint('PESEL', new Assert\Regex(['pattern' => '/^[0-9]{11}$/', 'message' => 'Nieprawidłowy PESEL']));
         

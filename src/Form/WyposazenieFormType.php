@@ -18,8 +18,8 @@
 
         public function buildForm(FormBuilderInterface $builder, array $options){
             $builder
-            ->add('nazwa', TextType::class, array('attr' => array('class' => 'form-control')))
-            ->add('ilosc', TextType::class, array('attr' => array('class' => 'form-control')))
+            ->add('Nazwa', TextType::class, array('attr' => array('class' => 'form-control')))
+            ->add('Ilosc', TextType::class, array('attr' => array('class' => 'form-control')))
             ->add('Mieszkanie', EntityType::class, array('class' => ObiektyNajmu::class, 'attr' => array('class' => 'form-control')));
         }
 

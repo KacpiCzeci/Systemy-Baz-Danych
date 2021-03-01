@@ -32,7 +32,7 @@
     use Doctrine\ORM\EntityManagerInterface;
 
     class MenuController extends AbstractController {
-        /*
+        /**
          * @Route("/", name="main_menu")
          */
         public function index() {
@@ -224,7 +224,7 @@
                 return $this->redirectToRoute('editSpoldzielnie', ['id' => $spoldzielnie->getNazwa()]);
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newSpoldzielnie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -251,7 +251,7 @@
                 return $this->redirectToRoute('editZwierzeta', ['id' => $zwierzeta->getId()]);
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newZwierzeta.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -278,7 +278,7 @@
                 return $this->redirectToRoute('editWyposazenia', ['id' => $wyposazenia->getId()]);
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newWyposazenie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -312,7 +312,7 @@
                 return $this->redirectToRoute('editBudynki', ['id' => $budynki->Adres()]);
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newBudynki.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -349,7 +349,7 @@
                 return $this->redirectToRoute('editObiektyNajmu', ['id' => $obiektynajmu->getMieszkanie()]);
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newObiektyNajmu.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -384,7 +384,7 @@
                 return $this->redirectToRoute('editUmowy', ['id' => $umowy->getId()]);
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newUmowy.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -419,7 +419,7 @@
                 return $this->redirectToRoute('editOsoby', ['id' =>  $osoby->getPESEL()]);
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newOsoby.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -571,7 +571,7 @@
                 return $this->redirectToRoute('newOsoba');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newOsoby.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -596,7 +596,7 @@
                 return $this->redirectToRoute('newBudynek');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newBudynki.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -621,7 +621,7 @@
                 return $this->redirectToRoute('newObiektNajmu');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newObiektyNajmu.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -646,7 +646,7 @@
                 return $this->redirectToRoute('newSpoldzielnia');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newSpoldzielnie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -671,7 +671,7 @@
                 return $this->redirectToRoute('newUmowa');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newUmowy.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
 
         /**
@@ -696,7 +696,7 @@
                 return $this->redirectToRoute('newWyposazenie');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newWyposazenie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
         
         /**
@@ -722,6 +722,6 @@
                 return $this->redirectToRoute('newZwierze');
             }
             
-            return $this->render('new.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newZwierzeta.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
         }
     }

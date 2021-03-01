@@ -18,9 +18,9 @@
 
         public function buildForm(FormBuilderInterface $builder, array $options){
             $builder
-            ->add('gatunek', TextType::class, array('invalid_message' => 'Nieprawidłowy gatunek', 'attr' => array('class' => 'form-control')))
-            ->add('ilosc', TextType::class, array('invalid_message' => 'Nieprawidłowa ilość', 'error_bubbling' => true, 'attr' => array('class' => 'form-control')))
-            ->add('id_umowy', EntityType::class, array('class' => Umowy::class, 'invalid_message' => 'Nieprawidłowe id umowy', 'attr' => array('class' => 'form-control')));
+            ->add('Gatunek', TextType::class, array('invalid_message' => 'Nieprawidłowy gatunek', 'attr' => array('class' => 'form-control')))
+            ->add('Ilosc', TextType::class, array('invalid_message' => 'Nieprawidłowa ilość', 'error_bubbling' => true, 'attr' => array('class' => 'form-control')))
+            ->add('Id_umowy', EntityType::class, array('class' => Umowy::class, 'invalid_message' => 'Nieprawidłowe id umowy', 'attr' => array('class' => 'form-control')));
         }
 
         public function configureOptions(OptionsResolver $resolver){

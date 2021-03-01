@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ObiektyNajmuRepository::class)
- * @UniqueEntity(fields={"Nr_mieszkania", "Adres"}, message = "Istnieje już taki obiekt pod danym adresem")
  */
 class ObiektyNajmu
 {
@@ -66,6 +65,8 @@ class ObiektyNajmu
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
+        $metadata->addConstraint(new UniqueEntity(['fields' => ['Nr_mieszkania', 'Adres'], 'message' => 'Istnieje już taki obiekt pod danym adresem']));
+
         $metadata->addPropertyConstraint('Nr_mieszkania', new Assert\NotNull(['message' => 'Nieprawidłowy numer mieszkania']));
         $metadata->addPropertyConstraint('Nr_mieszkania', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowy numer mieszkania']));
         $metadata->addPropertyConstraint('Nr_mieszkania', new Assert\Regex(['pattern' => '/^[0-9]{1,3}$/', 'message' => 'Nieprawidłowy numer mieszkania']));

@@ -12,8 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UmowyRepository::class)
- * @UniqueEntity(fields={"Nr_umowy", "Lokator", "Wynajmujacy", "Mieszkanie"}, message = "Istnieje już taka umowa")
- * @UniqueEntity("Nr_umowy", message = "Istnieje już taka umowa")
  */
 class Umowy
 {
@@ -74,6 +72,9 @@ class Umowy
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
+        $metadata->addConstraint(new UniqueEntity(['fields' => ['Nr_umowy', 'Lokator', 'Wynajmujacy', 'Mieszkanie'], 'message' => 'Istnieje już taka umowa']));
+        $metadata->addConstraint(new UniqueEntity(['fields' => 'Nr_umowy', 'message' => 'Istnieje już taka umowa']));
+
         $metadata->addPropertyConstraint('Nr_umowy', new Assert\NotNull(['message' => 'Nieprawidłowy numer umowy']));
         $metadata->addPropertyConstraint('Nr_umowy', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi numer umowy']));
 

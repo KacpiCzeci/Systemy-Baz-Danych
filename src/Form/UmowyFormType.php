@@ -21,11 +21,11 @@
 
         public function buildForm(FormBuilderInterface $builder, array $options){
             $builder
-            ->add('nr_umowy', TextType::class, array('attr' => array('class' => 'form-control')))
-            ->add('wynajem_od', DateType::class, array('attr' => array('class' => 'form-control')))
-            ->add('wynajem_do', DateType::class, array('attr' => array('class' => 'form-control')))
-            ->add('data_zawarcia_umowy', DateType::class, array('attr' => array('class' => 'form-control')))
-            ->add('rodzaj_umowy', ChoiceType::class, array('choices' => ['Krótkoterminowe' => 'Krótkoterminowe', 'Długoterminowe' => 'Długoterminowe'], 'attr' => array('class' => 'form-control')))
+            ->add('Nr_umowy', TextType::class, array('attr' => array('class' => 'form-control')))
+            ->add('Wynajem_od', DateType::class, array('attr' => array('class' => 'form-control')))
+            ->add('Wynajem_do', DateType::class, array('attr' => array('class' => 'form-control')))
+            ->add('Data_zawarcia_umowy', DateType::class, array('attr' => array('class' => 'form-control')))
+            ->add('Rodzaj_umowy', ChoiceType::class, array('choices' => ['Krótkoterminowe' => 'Krótkoterminowe', 'Długoterminowe' => 'Długoterminowe'], 'attr' => array('class' => 'form-control')))
             ->add('Lokator', EntityType::class, array('class' => Osoby::class, 'attr' => array('class' => 'form-control')))
             ->add('Wynajmujacy', EntityType::class, array('class' => Osoby::class, 'attr' => array('class' => 'form-control')))
             ->add('Mieszkanie', EntityType::class, array('class' => ObiektyNajmu::class, 'attr' => array('class' => 'form-control')));
