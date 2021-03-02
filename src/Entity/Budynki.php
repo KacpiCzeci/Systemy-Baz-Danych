@@ -44,7 +44,7 @@ class Budynki
         $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres budynku.']));
         
         $metadata->addPropertyConstraint('Typ', new Assert\NotNull(['message' => 'Typ budynku nie może być pusty.']));
-        $metadata->addPropertyConstraint('Typ', new Assert\Regex(['pattern'=> '/^[^0-9]+$/', 'message' => 'Typ budynku zawiera niepoprawne znaki.']));
+        $metadata->addPropertyConstraint('Typ', new Assert\Regex(['pattern'=> '/^[^0-9;,\'\.]+$/', 'message' => 'Typ budynku zawiera niepoprawne znaki.']));
         $metadata->addPropertyConstraint('Typ', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa typu budynku.']));
         
         $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nazwa społdzielni nie może być pusta.']));

@@ -72,7 +72,6 @@ class Umowy
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addConstraint(new UniqueEntity(['fields' => ['Nr_umowy', 'Lokator', 'Wynajmujacy', 'Mieszkanie'], 'message' => 'Istnieje już taka umowa.']));
         $metadata->addConstraint(new UniqueEntity(['fields' => 'Nr_umowy', 'message' => 'Istnieje już taka umowa.']));
 
         $metadata->addPropertyConstraint('Nr_umowy', new Assert\NotNull(['message' => 'Numer umowy nie powinien być pusty.']));
@@ -96,7 +95,7 @@ class Umowy
         $metadata->addPropertyConstraint('Wynajmujacy', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi PESEL wynajmującego.']));
         $metadata->addPropertyConstraint('Wynajmujacy', new Assert\Expression(['expression' => 'this.getWynajmujacy() != this.getLokator()', 'message' => 'PESEL lokatora i wynajmującego powinny być inne.']));
         
-        $metadata->addPropertyConstraint('Mieszkanie', new Assert\NotNull(['message' => 'Nazwa mieszkania nie powinien być pusty.']));
+        $metadata->addPropertyConstraint('Mieszkanie', new Assert\NotNull(['message' => 'Nazwa mieszkania nie powinna być pusta.']));
     }
 
     public function getId()

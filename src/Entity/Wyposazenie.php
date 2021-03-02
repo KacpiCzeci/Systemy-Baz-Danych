@@ -49,7 +49,7 @@ class Wyposazenie
 
         $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nazwa wyposażenia nie powinna być pusta.']));
         $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa wyposażenia.']));
-        $metadata->addPropertyConstraint('Nazwa', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+$/', 'message' => 'Nieprawidłowy format nazwy wyposażenia.']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\Regex(['pattern' => '/^[^0-9;,\'\"\.]+$/', 'message' => 'Nieprawidłowy format nazwy wyposażenia.']));
 
         $metadata->addPropertyConstraint('Ilosc', new Assert\NotNull(['message' => 'Ilość wyposażenia nie powinna być pusta.']));
         $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'numeric', 'message' => 'Ilość wyposażenia powinna być typu numerycznego.']));

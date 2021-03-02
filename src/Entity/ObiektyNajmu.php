@@ -92,7 +92,7 @@ class ObiektyNajmu
 
         $metadata->addPropertyConstraint('Typ_mieszkania', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa typu mieszkania.']));
         $metadata->addPropertyConstraint('Typ_mieszkania', new Assert\Expression(['expression' => '(this.getRodzajObiektu() == "Mieszkanie" and this.getTypMieszkania() != null) or (this.getRodzajObiektu() != "Mieszkanie" and this.getTypMieszkania() == null)', 'message' => 'Wybrano niewłaściwą konfigurację lub wartość typu mieszkania jest pusta.']));
-        $metadata->addPropertyConstraint('Typ_mieszkania', new Assert\Regex(['pattern' => '/^[^0-9]+$/', 'message' => 'Nieprawidłowy format typu mieszkania.']));
+        $metadata->addPropertyConstraint('Typ_mieszkania', new Assert\Regex(['pattern' => '/^[^0-9,;\'\"\.]+$/', 'message' => 'Nieprawidłowy format typu mieszkania.']));
 
         $metadata->addPropertyConstraint('Nr_pokoju', new Assert\Type(['type' => 'numeric', 'message' => 'Numer pokoju powinien być typu numerycznego.']));
         $metadata->addPropertyConstraint('Nr_pokoju', new Assert\Regex(['pattern' => '/^[0-9]{1,3}$/', 'message' => 'Nieprawidłowy format numeru pokoju.']));

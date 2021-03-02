@@ -44,7 +44,7 @@ class Zwierzeta
 
         $metadata->addPropertyConstraint('Gatunek', new Assert\NotNull(['message' => 'Gatunek nie powinien być pusty.']));
         $metadata->addPropertyConstraint('Gatunek', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa gatunku.']));
-        $metadata->addPropertyConstraint('Gatunek', new Assert\Regex(['pattern' => '/^[^0-9]*$/', 'message' => 'Nieprawidłowy format gatunku.']));
+        $metadata->addPropertyConstraint('Gatunek', new Assert\Regex(['pattern' => '/^[^0-9,;\"\'\.]+$/', 'message' => 'Nieprawidłowy format gatunku.']));
 
         $metadata->addPropertyConstraint('Ilosc', new Assert\NotNull(['message' => 'Ilość zwierząt nie powinna być pusta.']));
         $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'numeric', 'message' => 'Ilość zwierząt powinna być typu numerycznego.']));

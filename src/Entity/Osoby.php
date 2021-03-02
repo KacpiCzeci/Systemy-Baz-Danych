@@ -59,11 +59,11 @@ class Osoby
         $metadata->addPropertyConstraint('PESEL', new Assert\Regex(['pattern' => '/^[0-9]{11}$/', 'message' => 'Nieprawidłowy format PESELu.']));
         
         $metadata->addPropertyConstraint('Imie', new Assert\NotNull(['message' => 'Imię nie powinno być puste.']));
-        $metadata->addPropertyConstraint('Imie', new Assert\Regex(['pattern'=> '/^[A-Z][a-z]+$/', 'message' => 'Nieprawidłowy format imienia.']));
+        $metadata->addPropertyConstraint('Imie', new Assert\Regex(['pattern'=> '/^[^0-9;,\"\'\.]+$/', 'message' => 'Nieprawidłowy format imienia.']));
         $metadata->addPropertyConstraint('Imie', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długie imię.']));
 
         $metadata->addPropertyConstraint('Nazwisko', new Assert\NotNull(['message' => 'Nazwisko nie powinnno być puste.']));
-        $metadata->addPropertyConstraint('Nazwisko', new Assert\Regex(['pattern'=> '/^[A-Z][a-z]+$/', 'message' => 'Nieprawidłowy format nazwiska.']));
+        $metadata->addPropertyConstraint('Nazwisko', new Assert\Regex(['pattern'=> '/^[^0-9;,\"\'\.]+$/', 'message' => 'Nieprawidłowy format nazwiska.']));
         $metadata->addPropertyConstraint('Nazwisko', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długie nazwisko.']));
         
         $metadata->addPropertyConstraint('Nr_telefonu', new Assert\NotNull(['message' => 'Numer telefonu nie powinien być pusty.']));
