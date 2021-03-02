@@ -41,6 +41,10 @@
                 <td>Email:</td>
                 <td>{{ osoby.getEmail() }}</td>
             </tr>
+            <tr>
+                <td>Łączna liczba umów:</td>
+                <td>{% if ile %}{{ ile }}{% else %}Brak umów{% endif %}</td>
+            </tr>
         </tbody>
         </table>
     {% else %}

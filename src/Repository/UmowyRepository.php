@@ -19,13 +19,15 @@ class UmowyRepository extends ServiceEntityRepository
         parent::__construct($registry, Umowy::class);
     }
 
-    public function findUmowy() {
-        $entityManager = $this->getEntityManager();
+    public function deleteRozwiaz_umowy(string $id_umowy)
+    {
+        $conn = $this->getEntityManager()->getConnection();
 
-        $query = $entityManager->createQuery(
-            'SELECT * FROM Umowy u'
-        );
-        return $query->getResult();
+        $sql = '
+            call rozwiaz_umowe(:id_umowy)
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id_umowy' => $id_umowy]);
     }
 
     // /**

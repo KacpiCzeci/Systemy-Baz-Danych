@@ -133,7 +133,8 @@
             $osoby = $this->getDoctrine()->getRepository(Osoby::class)->find($id);
             $umowylokator = $this->getDoctrine()->getRepository(Umowy::class)->findby(array('Lokator' => $osoby->getPESEL()));
             $umowywynajmujacy = $this->getDoctrine()->getRepository(Umowy::class)->findby(array('Wynajmujacy' => $osoby->getPESEL()));
-            return $this->render('showdetailedOsoby.html.twig', array('osoby' => $osoby, 'umowylokator' => $umowylokator,  'umowywynajmujacy' => $umowywynajmujacy));
+            $ile = $this->getDoctrine()->getRepository(Osoby::class)->showIle_umow($osoby->getPESEL());
+            return $this->render('showdetailedOsoby.html.twig', array('osoby' => $osoby, 'umowylokator' => $umowylokator,  'umowywynajmujacy' => $umowywynajmujacy, 'ile' => $ile));
         }
 
         /**
@@ -186,11 +187,9 @@
                 return $this->redirectToRoute('showUmowy');
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($umowa);
-            $entityManager->flush();
+            $this->getDoctrine()->getRepository(Umowy::class)->deleteRozwiaz_umowy($umowa->getNrumowy());
 
-            $this->addFlash('success', 'Pomyślnie usunięto osobę z bazy danych!');
+            $this->addFlash('success', 'Pomyślnie usunięto umowę z bazy danych!');
   
             return $this->redirectToRoute('showUmowy');
         }

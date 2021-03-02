@@ -19,6 +19,19 @@ class OsobyRepository extends ServiceEntityRepository
         parent::__construct($registry, Osoby::class);
     }
 
+    public function showIle_umow(string $PESEL): string
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            select ile_umow(:PESEL)
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['PESEL' => $PESEL]);
+
+        return $stmt->fetchOne();
+    }
+
     // /**
     //  * @return Osoby[] Returns an array of Osoby objects
     //  */
