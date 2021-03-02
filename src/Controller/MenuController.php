@@ -175,19 +175,22 @@
 
         /**
          * @Route("/WyswietlUmowy/delete/{id}", name="deleteUmowy")
-         * @Method({"GET"})
+         * @Method({"DELETE"})
          */
         public function deleteUmowy(Request $request, $id) {
             $umowa = $this->getDoctrine()->getRepository(Umowy::class)->find($id);
             $zwierzeta = $this->getDoctrine()->getRepository(Zwierzeta::class)->findBy(array('Id_umowy' => $umowa->getId()));
             
             if(count($zwierzeta) > 0){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym zwierzęciem! Nie możesz go usunąć.');
                 return $this->redirectToRoute('showUmowy');
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($umowa);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Pomyślnie usunięto osobę z bazy danych!');
   
             return $this->redirectToRoute('showUmowy');
         }
@@ -221,10 +224,10 @@
 
                 $this->addFlash('success', 'Zaktualizowano spółdzielnię w bazie danych!');
 
-                return $this->redirectToRoute('editSpoldzielnie', ['id' => $spoldzielnie->getNazwa()]);
+                return $this->redirectToRoute('showSpoldzielnie');
             }
             
-            return $this->render('new/newSpoldzielnie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newSpoldzielnie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => true));
         }
 
         /**
@@ -248,10 +251,10 @@
 
                 $this->addFlash('success', 'Zaktualizowano zwierzę w bazie danych!');
 
-                return $this->redirectToRoute('editZwierzeta', ['id' => $zwierzeta->getId()]);
+                return $this->redirectToRoute('showZwierzeta');
             }
             
-            return $this->render('new/newZwierzeta.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newZwierzeta.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => true));
         }
 
         /**
@@ -275,10 +278,10 @@
 
                 $this->addFlash('success', 'Zaktualizowano wyposażenie w bazie danych!');
 
-                return $this->redirectToRoute('editWyposazenia', ['id' => $wyposazenia->getId()]);
+                return $this->redirectToRoute('showWyposazenie');
             }
             
-            return $this->render('new/newWyposazenie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newWyposazenie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => true));
         }
 
         /**
@@ -309,10 +312,10 @@
 
                 $this->addFlash('success', 'Zaktualizowano budynek w bazie danych!');
 
-                return $this->redirectToRoute('editBudynki', ['id' => $budynki->getAdres()]);
+                return $this->redirectToRoute('showBudynki');
             }
             
-            return $this->render('new/newBudynki.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newBudynki.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => true));
         }
 
         /**
@@ -356,10 +359,10 @@
 
                 $this->addFlash('success', 'Zaktualizowano obiekt najmu w bazie danych!');
 
-                return $this->redirectToRoute('editObiektyNajmu', ['id' => $obiektynajmu->getMieszkanie()]);
+                return $this->redirectToRoute('showObiektyNajmu');
             }
             
-            return $this->render('new/newObiektyNajmu.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newObiektyNajmu.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => true));
         }
 
         /**
@@ -391,10 +394,10 @@
 
                 $this->addFlash('success', 'Zaktualizowano umowę w bazie danych!');
 
-                return $this->redirectToRoute('editUmowy', ['id' => $umowy->getId()]);
+                return $this->redirectToRoute('showUmowy');
             }
             
-            return $this->render('new/newUmowy.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newUmowy.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => true));
         }
 
         /**
@@ -436,10 +439,10 @@
 
                 $this->addFlash('success', 'Zaktualizowano osobę w bazie danych!');
 
-                return $this->redirectToRoute('editOsoby', ['id' =>  $osoby->getPESEL()]);
+                return $this->redirectToRoute('showOsoby');
             }
             
-            return $this->render('new/newOsoby.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newOsoby.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => true));
         }
 
         /**
@@ -482,9 +485,18 @@
         public function deleteObiektyNajmu(Request $request, $id) {
             $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->find($id);
             $wyposazenia = $this->getDoctrine()->getRepository(Wyposazenie::class)->findBy(array('Mieszkanie' => $obiektynajmu->getMieszkanie()));
+            $umowy = $this->getDoctrine()->getRepository(Umowy::class)->findBy(array('Mieszkanie' => $obiektynajmu->getMieszkanie()));
 
+            if(count($wyposazenia) > 0 && count($umowy) > 0){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym wyposażeniem  oraz jedną umową! Nie możesz go usunąć.');
+                return $this->redirectToRoute('showObiektyNajmu');
+            }
             if(count($wyposazenia) > 0){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajjmniej jednym wyposażeniem! Nie możesz go usunąć.');
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym wyposażeniem! Nie możesz go usunąć.');
+                return $this->redirectToRoute('showObiektyNajmu');
+            }
+            if(count($umowy) > 0){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jedną umową! Nie możesz go usunąć.');
                 return $this->redirectToRoute('showObiektyNajmu');
             }
 
@@ -595,7 +607,7 @@
                 return $this->redirectToRoute('newOsoba');
             }
             
-            return $this->render('new/newOsoby.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newOsoby.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => false));
         }
 
         /**
@@ -620,7 +632,7 @@
                 return $this->redirectToRoute('newBudynek');
             }
             
-            return $this->render('new/newBudynki.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newBudynki.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => false));
         }
 
         /**
@@ -645,7 +657,7 @@
                 return $this->redirectToRoute('newObiektNajmu');
             }
             
-            return $this->render('new/newObiektyNajmu.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newObiektyNajmu.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => false));
         }
 
         /**
@@ -670,7 +682,7 @@
                 return $this->redirectToRoute('newSpoldzielnia');
             }
             
-            return $this->render('new/newSpoldzielnie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newSpoldzielnie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => false));
         }
 
         /**
@@ -695,7 +707,7 @@
                 return $this->redirectToRoute('newUmowa');
             }
             
-            return $this->render('new/newUmowy.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newUmowy.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => false));
         }
 
         /**
@@ -720,7 +732,7 @@
                 return $this->redirectToRoute('newWyposazenie');
             }
             
-            return $this->render('new/newWyposazenie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newWyposazenie.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => false));
         }
         
         /**
@@ -746,6 +758,6 @@
                 return $this->redirectToRoute('newZwierze');
             }
             
-            return $this->render('new/newZwierzeta.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
+            return $this->render('new/newZwierzeta.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa, 'ok' => false));
         }
     }

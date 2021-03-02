@@ -52,7 +52,7 @@ class Zwierzeta
         $metadata->addPropertyConstraint('Ilosc', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Ilość zwierząt nie powinna być mniejsza niż 1.']));
         $metadata->addPropertyConstraint('Ilosc', new Assert\LessThanOrEqual(['value' => 99, 'message' => 'Ilość zwierząt nie powinna być większa niż 99.']));
 
-        $metadata->addPropertyConstraint('Id_umowy', new Assert\NotNull(['message' => 'Nieprawidłowe ID umowy.']));
+        $metadata->addPropertyConstraint('Id_umowy', new Assert\NotNull(['message' => 'ID umowy nie powinno być puste.']));
     }
 
     public function getId()

@@ -70,10 +70,10 @@ class Osoby
         $metadata->addPropertyConstraint('Nr_telefonu', new Assert\Regex(['pattern' => '/^[0-9]{9}$/', 'message' => 'Nieprawidłowy format numeru telefonu.']));
         
         $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Adres nie powinien być pusty.']));
-        $metadata->addPropertyConstraint('Adres', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+[0-9]* +[0-9]+\/[0-9]+$/', 'message' => 'Nieprawidłowy format adresu.']));
+        $metadata->addPropertyConstraint('Adres', new Assert\Regex(['pattern' => '/^[^0-9]+\ *[0-9]*\ *[0-9]+\/[0-9]+$/', 'message' => 'Nieprawidłowy format adresu.']));
         $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres.']));
 
-        $metadata->addPropertyConstraint('Email', new Assert\Regex(['pattern' => '/^.+@.+\..+$/', 'message' => 'Nieprawidłowy format adresu email.']));
+        $metadata->addPropertyConstraint('Email', new Assert\Regex(['pattern' => '/^[a-z]+@[a-z]+\.[a-z]+$/', 'message' => 'Nieprawidłowy format adresu email.']));
         $metadata->addPropertyConstraint('Email', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa adres email.']));
     }
 
