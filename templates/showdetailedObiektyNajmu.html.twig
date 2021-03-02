@@ -120,15 +120,15 @@
             </tr>
             <tr>
                 <td>Wynajem od:</td>
-                <td>{{ umowy.getWynajemod().format('d/m/y') }}</td>
+                <td>{{ umowy.getWynajemod()|format_datetime('full', 'none', locale='pl') }}</td>
             </tr>
             <tr>
                 <td>Wynajem do:</td>
-                <td>{{ umowy.getWynajemdo().format('d/m/y') }}</td>
+                <td>{{ umowy.getWynajemdo()|format_datetime('full', 'none', locale='pl') }}</td>
             </tr>
             <tr>
                 <td>Data zawrcia umowy:</td>
-                <td>{{ umowy.getDatazawarciaumowy().format('d/m/y') }}</td>
+                <td>{{ umowy.getDatazawarciaumowy()|format_datetime('full', 'none', locale='pl') }}</td>
             </tr>
             <tr>
                 <td>Rodzaj umowy:</td>

@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ObiektyNajmuRepository::class)
+ * @ORM\Table(indexes={@ORM\Index(name="Adres_idx", columns={"Adres"})})
  */
 class ObiektyNajmu
 {
