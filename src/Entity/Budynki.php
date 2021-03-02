@@ -38,17 +38,17 @@ class Budynki
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addConstraint(new UniqueEntity(['fields' => 'Adres', 'message' => 'Istnieje już budynek pod takim adresem']));
+        $metadata->addConstraint(new UniqueEntity(['fields' => 'Adres', 'message' => 'Istnieje już budynek pod takim adresem.']));
 
-        $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Nieprawidłowy adres']));
-        $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres budynku']));
+        $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Adres nie może być pusty.']));
+        $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres budynku.']));
         
-        $metadata->addPropertyConstraint('Typ', new Assert\NotNull(['message' => 'Nieprawidłowy typ budynku']));
-        $metadata->addPropertyConstraint('Typ', new Assert\Regex(['pattern'=> '/^[a-zA-Z ]+$/', 'message' => 'Nieprawidłowy typ budynku']));
-        $metadata->addPropertyConstraint('Typ', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa typu budynku']));
+        $metadata->addPropertyConstraint('Typ', new Assert\NotNull(['message' => 'Typ budynku nie może być pusty.']));
+        $metadata->addPropertyConstraint('Typ', new Assert\Regex(['pattern'=> '/^[a-zA-Z ]+$/', 'message' => 'Typ budynku zawiera niepoprawne znaki.']));
+        $metadata->addPropertyConstraint('Typ', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa typu budynku.']));
         
-        $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nieprawidłowa nazwa społdzielni']));
-        $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa spółdzielni']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nazwa społdzielni nie może być pusta.']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa spółdzielni.']));
     }
 
     public function getAdres()

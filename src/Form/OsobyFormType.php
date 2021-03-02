@@ -26,8 +26,7 @@
             ->add('Nazwisko', TextType::class, array('invalid_message' => 'Nieprawidłowe nazwisko', 'attr' => array('class' => 'form-control')))
             ->add('Nr_telefonu', TextType::class, array('invalid_message' => 'Nieprawidłowy numer telefonu', 'attr' => array('class' => 'form-control')))
             ->add('Adres', TextType::class, array('invalid_message' => 'Nieprawidłowy adres', 'attr' => array('class' => 'form-control')))
-            ->add('Email', TextType::class, array('invalid_message' => 'Nieprawidłowy e-mail', 'required' => false, 'attr' => array('class' => 'form-control')))
-            ->add('Rodzaj_osoby', ChoiceType::class, array('choices' => ['Lokator' => 'Lokator', 'Wynajmujący' => 'Wynajmujący'], 'attr' => array('class' => 'form-control')));
+            ->add('Email', TextType::class, array('invalid_message' => 'Nieprawidłowy e-mail', 'required' => false, 'attr' => array('class' => 'form-control')));
         }
 
         public function configureOptions(OptionsResolver $resolver){

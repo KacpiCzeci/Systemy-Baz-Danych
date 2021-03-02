@@ -37,16 +37,16 @@ class Spoldzielnie
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addConstraint(new UniqueEntity(['fields' => 'Nazwa', 'message' => 'Istnieje już społdzielnia o takiej nazwie']));
+        $metadata->addConstraint(new UniqueEntity(['fields' => 'Nazwa', 'message' => 'Istnieje już społdzielnia o takiej nazwie.']));
 
-        $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nieprawidłowa nazwa spółdzielni']));
-        $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa społdzielni']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nazwa spółdzielni nie powinna być pusta.']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa społdzielni.']));
 
-        $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Nieprawidłowy adres spółdzielni']));
-        $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres społdzielni']));
+        $metadata->addPropertyConstraint('Adres', new Assert\NotNull(['message' => 'Adres spółdzielni nie powinien być pusty.']));
+        $metadata->addPropertyConstraint('Adres', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres społdzielni.']));
 
-        $metadata->addPropertyConstraint('Nr_telefonu', new Assert\NotNull(['message' => 'Nieprawidłowy numer telefonu']));
-        $metadata->addPropertyConstraint('Nr_telefonu', new Assert\Regex(['pattern' => '/^[0-9]{9}$/', 'message' => 'Nieprawidłowy numer telefonu']));
+        $metadata->addPropertyConstraint('Nr_telefonu', new Assert\NotNull(['message' => 'Numer telefonu nie powinien być pusty.']));
+        $metadata->addPropertyConstraint('Nr_telefonu', new Assert\Regex(['pattern' => '/^[0-9]{9}$/', 'message' => 'Nieprawidłowy format numeru telefonu.']));
     }
 
     public function getNazwa()

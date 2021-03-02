@@ -4,6 +4,11 @@
 
 {% block body %}
 
+    <div class="container">
+        <div class="row">
+            <div class="col">
+<a href="/sbd-projekt/public/WyswietlZwierzeta" class="btn btn-secondary">Cofnij</a>
+</h1></h1>
     <h1>Umowa</h1>
 
     {% if umowy %}
@@ -72,10 +77,6 @@
                 <td>Email:</td>
                 <td>{{ lokatorzy.getEmail() }}</td>
             </tr>
-            <tr>
-                <td>Adres:</td>
-                <td>{{ lokatorzy.getRodzajosoby() }}</td>
-            </tr>
         </tbody>
         </table>
     {% else %}
@@ -114,10 +115,6 @@
             <tr>
                 <td>Email:</td>
                 <td>{{ wynajmujacy.getEmail() }}</td>
-            </tr>
-            <tr>
-                <td>Adres:</td>
-                <td>{{ wynajmujacy.getRodzajosoby() }}</td>
             </tr>
         </tbody>
         </table>
@@ -196,4 +193,7 @@
     {% else %}
         <p>Brak zwierząt do wyświetlenia</p>
     {% endif %}
+</div>
+</div>
+</div>
 {% endblock %}

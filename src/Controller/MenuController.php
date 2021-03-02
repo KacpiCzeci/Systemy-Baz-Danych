@@ -209,7 +209,7 @@
             $form->handleRequest($request);
 
             if(count($budynki) > 0 && $nazwap != $spoldzielnie->getNazwa()){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego nazwy.');
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym budynkiem! Nie możesz zmienić jego nazwy.');
                 return $this->redirectToRoute('editSpoldzielnie', ['id' => $nazwap]);
             }
 
@@ -297,7 +297,7 @@
             $form->handleRequest($request);
 
             if(count($obiektynajmu) > 0 && $adres != $budynki->getAdres()){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego adresu.');
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym obiektem najmu! Nie możesz zmienić jego adresu.');
                 return $this->redirectToRoute('editBudynki', ['id' => $adres]);
             }
 
@@ -309,7 +309,7 @@
 
                 $this->addFlash('success', 'Zaktualizowano budynek w bazie danych!');
 
-                return $this->redirectToRoute('editBudynki', ['id' => $budynki->Adres()]);
+                return $this->redirectToRoute('editBudynki', ['id' => $budynki->getAdres()]);
             }
             
             return $this->render('new/newBudynki.html.twig', array('form' => $form->createView(), 'nazwa' => $nazwa));
@@ -333,8 +333,18 @@
 
             $form->handleRequest($request);
 
-            if((count($wyposazenie) > 0 || count($umowy) > 0) && ($adres != $obiektynajmu->getAdres() || $nrmieszkania != $obiektynajmu->getNrMieszkania())){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego adresu.');
+            if(count($wyposazenie) > 0 && count($umowy) > 0 && ($adres != $obiektynajmu->getAdres() || $nrmieszkania != $obiektynajmu->getNrMieszkania())){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym wyposażeniem oraz umową! Nie możesz zmienić jego adresu.');
+                return $this->redirectToRoute('editObiektyNajmu', ['id' => $mieszkanie]);
+            }
+            
+            if(count($wyposazenie) > 0 && ($adres != $obiektynajmu->getAdres() || $nrmieszkania != $obiektynajmu->getNrMieszkania())){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym wyposażeniem! Nie możesz zmienić jego adresu.');
+                return $this->redirectToRoute('editObiektyNajmu', ['id' => $mieszkanie]);
+            }
+
+            if(count($umowy) > 0 && ($adres != $obiektynajmu->getAdres() || $nrmieszkania != $obiektynajmu->getNrMieszkania())){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jedną umową! Nie możesz zmienić jego adresu.');
                 return $this->redirectToRoute('editObiektyNajmu', ['id' => $mieszkanie]);
             }
 
@@ -369,7 +379,7 @@
             $form->handleRequest($request);
 
             if(count($zwierze) > 0 && $nrumowy != $umowy->getNrUmowy()){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego numeru.');
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym zwierzęciem! Nie możesz zmienić jego numeru.');
                 return $this->redirectToRoute('editUmowy', ['id' => $idx]);
             }
 
@@ -403,8 +413,18 @@
 
             $form->handleRequest($request);
 
-            if((count($lokator) > 0 || count($wynajmujacy) > 0) && $pesel != $osoby->getPESEL()){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz zmienić jego PESELU.');
+            if(count($lokator) > 0 && count($wynajmujacy) > 0 && $pesel != $osoby->getPESEL()){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jedną umową jako lokator oraz jako wynajmujący! Nie możesz zmienić jego PESELU.');
+                return $this->redirectToRoute('editOsoby', ['id' => $pesel]);
+            }
+
+            if(count($lokator) > 0 && $pesel != $osoby->getPESEL()){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jedną umową jako lokator! Nie możesz zmienić jego PESELU.');
+                return $this->redirectToRoute('editOsoby', ['id' => $pesel]);
+            }
+
+            if(count($wynajmujacy) > 0 && $pesel != $osoby->getPESEL()){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jedną umową jako wynajmujący! Nie możesz zmienić jego PESELU.');
                 return $this->redirectToRoute('editOsoby', ['id' => $pesel]);
             }
 
@@ -428,17 +448,21 @@
          */
         public function deleteOsoby(Request $request, $id) {
             $osoby = $this->getDoctrine()->getRepository(Osoby::class)->find($id);
-            $umowy = $this->getDoctrine()->getRepository(Umowy::class)->findBy(array('Lokator' => $osoby->getPESEL()));
+            $umowy1 = $this->getDoctrine()->getRepository(Umowy::class)->findBy(array('Lokator' => $osoby->getPESEL()));
+            $umowy2 = $this->getDoctrine()->getRepository(Umowy::class)->findBy(array('Wynajmujacy' => $osoby->getPESEL()));
             
-            if(count($umowy) > 0){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz go usunąć.');
+            if(count($umowy1) > 0 && count($umowy2) > 0){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jedną umową jako lokator oraz jako wynajmujący! Nie możesz go usunąć.');
                 return $this->redirectToRoute('showOsoby');
             }
 
-            $umowy = $this->getDoctrine()->getRepository(Umowy::class)->findBy(array('Wynajmujacy' => $osoby->getPESEL()));
+            if(count($umowy1) > 0){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jedną umową jako lokator! Nie możesz go usunąć.');
+                return $this->redirectToRoute('showOsoby');
+            }
             
-            if(count($umowy) > 0){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz go usunąć.');
+            if(count($umowy2) > 0){
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jedną umową jako wynajmujący! Nie możesz go usunąć.');
                 return $this->redirectToRoute('showOsoby');
             }
 
@@ -460,7 +484,7 @@
             $wyposazenia = $this->getDoctrine()->getRepository(Wyposazenie::class)->findBy(array('Mieszkanie' => $obiektynajmu->getMieszkanie()));
 
             if(count($wyposazenia) > 0){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz go usunąć.');
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajjmniej jednym wyposażeniem! Nie możesz go usunąć.');
                 return $this->redirectToRoute('showObiektyNajmu');
             }
 
@@ -482,7 +506,7 @@
             $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->findBy(array('Adres' => $budynki->getAdres()));
 
             if(count($obiektynajmu) > 0){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz go usunąć.');
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym obiektem najmu! Nie możesz go usunąć.');
                 return $this->redirectToRoute('showBudynki');
             }
 
@@ -504,7 +528,7 @@
             $budynki = $this->getDoctrine()->getRepository(Budynki::class)->findBy(array('Nazwa' => $spoldzielnie->getNazwa()));
 
             if(count($budynki) > 0){
-                $this->addFlash('error', 'Ten obiekt ma powiązanie z innymi! Nie możesz go usunąć.');
+                $this->addFlash('error', 'Ten obiekt ma powiązanie z przynajmniej jednym budynkiem! Nie możesz go usunąć.');
                 return $this->redirectToRoute('showSpoldzielnie');
             }
 

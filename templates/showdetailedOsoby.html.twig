@@ -3,7 +3,11 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-
+    <div class="container">
+        <div class="row">
+            <div class="col">
+<a href="/sbd-projekt/public/WyswietlZwierzeta" class="btn btn-secondary">Cofnij</a>
+</h1></h1>
     <h1>Osoba</h1>
 
     {% if osoby %}
@@ -36,10 +40,6 @@
             <tr>
                 <td>Email:</td>
                 <td>{{ osoby.getEmail() }}</td>
-            </tr>
-            <tr>
-                <td>Adres:</td>
-                <td>{{ osoby.getRodzajosoby() }}</td>
             </tr>
         </tbody>
         </table>
@@ -128,4 +128,7 @@
     {% else %}
         <p>Brak umów do wyświetlenia</p>
     {% endif %}
+</div>
+</div>
+</div>
 {% endblock %}

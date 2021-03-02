@@ -45,19 +45,20 @@ class Wyposazenie
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addConstraint(new UniqueEntity(['fields' => ['Nazwa', 'Mieszkanie'], 'message' => 'Istnieje już takie wyposażenie pod danym adresem']));
+        $metadata->addConstraint(new UniqueEntity(['fields' => ['Nazwa', 'Mieszkanie'], 'message' => 'Istnieje już takie wyposażenie pod danym adresem.']));
 
-        $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nieprawidłowa nazwa wyposażenia']));
-        $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa wyposażenia']));
-        $metadata->addPropertyConstraint('Nazwa', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+$/', 'message' => 'Nieprawidłowa nazwa wyposażenia']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\NotNull(['message' => 'Nazwa wyposażenia nie powinna być pusta.']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długa nazwa wyposażenia.']));
+        $metadata->addPropertyConstraint('Nazwa', new Assert\Regex(['pattern' => '/^[a-zA-Z ]+$/', 'message' => 'Nieprawidłowy format nazwy wyposażenia.']));
 
-        $metadata->addPropertyConstraint('Ilosc', new Assert\NotNull(['message' => 'Nieprawidłowa ilość wyposażenia']));
-        $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'numeric', 'message' => 'Nieprawidłowa ilość wyposażenia']));
-        $metadata->addPropertyConstraint('Ilosc', new Assert\Regex(['pattern' => '/^[0-9]{1,2}$/', 'message' => 'Nieprawidłowa ilość wyposażenia']));
-        $metadata->addPropertyConstraint('Ilosc', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Nieprawidłowa ilość wyposażenia']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\NotNull(['message' => 'Ilość wyposażenia nie powinna być pusta.']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\Type(['type' => 'numeric', 'message' => 'Ilość wyposażenia powinna być typu numerycznego.']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\Regex(['pattern' => '/^[0-9]{1,2}$/', 'message' => 'Nieprawidłowy format ilości wyposażenia.']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\GreaterThanOrEqual(['value' => 1, 'message' => 'Ilość wyposażenia nie powinna być mniejsza niż 1.']));
+        $metadata->addPropertyConstraint('Ilosc', new Assert\LessThanOrEqual(['value' => 99, 'message' => 'Ilość wyposażenia nie powinna być większa niż 99.']));
 
-        $metadata->addPropertyConstraint('Mieszkanie', new Assert\NotNull(['message' => 'Nieprawidłowy adres mieszkania']));
-        $metadata->addPropertyConstraint('Mieszkanie', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres mieszkania"']));
+        $metadata->addPropertyConstraint('Mieszkanie', new Assert\NotNull(['message' => 'Adres mieszkania nie powinien być pusty.']));
+        $metadata->addPropertyConstraint('Mieszkanie', new Assert\Length(['max' => 100, 'maxMessage' => 'Zbyt długi adres mieszkania.']));
     }
 
     public function getNazwa()
