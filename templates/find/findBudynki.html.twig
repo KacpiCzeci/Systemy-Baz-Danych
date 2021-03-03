@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Osoby{% endblock %}
+{% block title %}Budynki{% endblock %}
 
 {% block body %}
     <div class="cointainer">
@@ -35,36 +35,35 @@
 
 <div class="container">
 <h1></h1>
-                <a href="/sbd-projekt/public/NowaOsoba" class="btn btn-primary btn-lg" role="button">Dodaj</a>
+                <div class="inline">
+                <a href="/sbd-projekt/public/NowyBudynek" class="btn btn-primary btn-lg" role="button">Dodaj</a>
                 <a href="javascript:history.back()" class="btn btn-primary btn-lg">Cofnij</a>
 
-                {% if osoby %}
+                {% if budynki %}
                     <table id="umowy" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>PESEL</th>
-                                <th>Opcje</th>
-                            </tr>
-                        </thead>
-                    <tbody>
-                    {% for osoba in osoby %}
+                    <thead>
                         <tr>
-                            <td>{{ osoba.getImie() }}</td>
-                            <td>{{ osoba.getNazwisko() }}</td>
-                            <td>{{ osoba.getPESEL() }}</td>
-                            <td>
-                                <a href="/sbd-projekt/public/WyswietlOsoby/{{ osoba.getPESEL() }}" class="btn btn-dark">Szczegóły</a>
-                                <a href="/sbd-projekt/public/WyswietlOsoby/edit/{{ osoba.getPESEL() }}" class="btn btn-secondary">Edytuj</a>
-                                <a href="/sbd-projekt/public/WyswietlOsoby/delete/{{ osoba.getPESEL() }}" class="btn btn-danger">Usuń</a>
-                            </td>
+                            <th>Budynek</th>
+                            <th>Adres</th>
+                            <th>Opcje</th>
                         </tr>
-                    {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for budynek in budynki %}
+                            <tr>
+                                <td>{{ budynek.typ }}</td>
+                                <td>{{ budynek.adres }}</td>
+                                <td>
+                                    <a href="/sbd-projekt/public/WyswietlBudynki/{{ budynek.adres }}" class="btn btn-dark">Szczegóły</a>
+                                    <a href="/sbd-projekt/public/WyswietlBudynki/edit/{{ budynek.adres }}" class="btn btn-secondary">Edytuj</a>
+                                    <a href="/sbd-projekt/public/WyswietlBudynki/delete/{{ budynek.adres }}" class="btn btn-danger">Usuń</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                     </table>
                 {% else %}
-                    <p>Brak osób do wyświetlenia</p>
+                    <p>Brak budynków do wyświetlenia</p>
                 {% endif %}
-            </div>
+           </div>
 {% endblock %}

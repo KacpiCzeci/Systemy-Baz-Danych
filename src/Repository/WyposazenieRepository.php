@@ -19,6 +19,21 @@ class WyposazenieRepository extends ServiceEntityRepository
         parent::__construct($registry, Wyposazenie::class);
     }
 
+    public function findByRegex(string $regex)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            select nazwa, w.id as wid, o.mieszkanie as omieszkanie, adres, nr_mieszkania from wyposazenie w join obiekty_najmu o on w.mieszkanie=o.mieszkanie where w.nazwa = :regex or 
+            o.adres = :regex or 
+            o.nr_mieszkania = :regex
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['regex' => $regex]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Wyposazenie[] Returns an array of Wyposazenie objects
     //  */

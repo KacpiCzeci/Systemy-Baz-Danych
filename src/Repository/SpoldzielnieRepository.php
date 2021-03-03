@@ -19,6 +19,20 @@ class SpoldzielnieRepository extends ServiceEntityRepository
         parent::__construct($registry, Spoldzielnie::class);
     }
 
+    public function findByRegex(string $regex)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            select * from spoldzielnie where nazwa = :regex or 
+            adres = :regex
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['regex' => $regex]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Spoldzielnie[] Returns an array of Spoldzielnie objects
     //  */

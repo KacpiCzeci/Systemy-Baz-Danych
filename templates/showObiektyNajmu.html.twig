@@ -4,9 +4,6 @@
 
 {% block body %}
     <div class="cointainer">
-        <div class="row">
-            <div class="col">
-
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success alert-dismissible p-3 fade show" role="alert">
                         <h1></h1>
@@ -22,16 +19,32 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 {% endfor %}
+  </div>
 
+   <div class="container">
+        <div class="row">
+            <div class="col">
+
+                {{ form_start(form) }}
+                {{ form_widget(form.Answer) }}
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+<div class="container">
+<h1></h1>
                 <a href="/sbd-projekt/public/NowyObiektNajmu" class="btn btn-primary btn-lg" role="button">Dodaj</a>
-                <a href="/sbd-projekt/public" class="btn btn-primary btn-lg" role="button">Cofnij</a>
+                <a href="javascript:history.back()" class="btn btn-primary btn-lg">Cofnij</a>
 
                 {% if obiektynajmu %}
                     <table id="umowy" class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Obiekt Najmu</th>
-                                <th>Adres</th>
+                                <th>Ulica</th>
+                                <th>Numer</th>
                                 <th>Opcje</th>
                             </tr>
                         </thead>
@@ -39,7 +52,8 @@
                     {% for obiekt in obiektynajmu %}
                         <tr>
                             <td>{{ obiekt.getRodzajObiektu() }}</td>
-                            <td>{{ obiekt.getAdres() ~ " / " ~ obiekt.getNrMieszkania() }}</td>
+                            <td>{{ obiekt.getAdres() }}</td>
+                            <td>{{ obiekt.getNrMieszkania() }}</td>
                             <td>
                                 <a href="/sbd-projekt/public/WyswietlObiektyNajmu/{{ obiekt.getMieszkanie() }}" class="btn btn-dark">Szczegóły</a>
                                 <a href="/sbd-projekt/public/WyswietlObiektyNajmu/edit/{{ obiekt.getMieszkanie() }}" class="btn btn-secondary">Edytuj</a>
@@ -53,6 +67,4 @@
                     <p>Brak umów do wyświetlenia</p>
                 {% endif %}
             </div>
-        </div>
-    </div>
 {% endblock %}

@@ -19,6 +19,21 @@ class ObiektyNajmuRepository extends ServiceEntityRepository
         parent::__construct($registry, ObiektyNajmu::class);
     }
 
+    public function findByRegex(string $regex)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            select * from obiekty_najmu where rodzaj_obiektu = :regex or 
+            adres = :regex or 
+            nr_mieszkania = :regex
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['regex' => $regex]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return ObiektyNajmu[] Returns an array of ObiektyNajmu objects
     //  */

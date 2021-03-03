@@ -7,6 +7,7 @@
     use App\Entity\Spoldzielnie;
     use App\Entity\Umowy;
     use App\Entity\Wyposazenie;
+    use App\Entity\Wyszukiwanie;
     use App\Entity\Zwierzeta;
 
     use Doctrine\ORM\EntityRepository;
@@ -28,6 +29,7 @@
     use App\Form\SpoldzielnieFormType;
     use App\Form\UmowyFormType;
     use App\Form\WyposazenieFormType;
+    use App\Form\WyszukiwanieFormType;
     use App\Form\ZwierzetaFormType;
     use Doctrine\ORM\EntityManagerInterface;
 
@@ -43,63 +45,364 @@
          * @Route("/WyswietlUmowy", name="showUmowy")
          * @Method({"GET"})
          */
-        public function showUmowy(){
+        public function showUmowy(Request $request){
             $umowy = $this->getDoctrine()->getRepository(Umowy::class)->findAll();
-            return $this->render('showUmowy.html.twig', array('umowy' => $umowy));
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);;
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showUmowy');
+                }
+
+                return $this->redirectToRoute('findUmowy', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('showUmowy.html.twig', array('form' => $form->createView(), 'umowy' => $umowy, 'ok' => false));
+        }
+
+        /**
+         * @Route("/WyswietlUmowy/find/{id}", name="findUmowy")
+         * @Method({"GET"})
+         */
+        public function findUmowy(Request $request, $id){
+            $umowy = $this->getDoctrine()->getRepository(Umowy::class)->findByRegex($id);
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showUmowy');
+                }
+
+                return $this->redirectToRoute('findUmowy', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('find/findUmowy.html.twig', array('form' => $form->createView(), 'umowy' => $umowy, 'ok' => false));
         }
 
         /**
          * @Route("/WyswietlObiektyNajmu", name="showObiektyNajmu")
          * @Method({"GET"})
          */
-        public function showObiektyNajmu(){
+        public function showObiektyNajmu(Request $request){
             $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->findAll();
-            return $this->render('showObiektyNajmu.html.twig', array('obiektynajmu' => $obiektynajmu));
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);;
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showObiektyNajmu');
+                }
+
+                return $this->redirectToRoute('findObiektyNajmu', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('showObiektyNajmu.html.twig', array('form' => $form->createView(), 'obiektynajmu' => $obiektynajmu, 'ok' => false));
+        }
+
+        /**
+         * @Route("/WyswietlObiektyNajmu/find/{id}", name="findObiektyNajmu")
+         * @Method({"GET"})
+         */
+        public function findObiektyNajmu(Request $request, $id){
+            $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->findByRegex($id);
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showObiektyNajmu');
+                }
+
+                return $this->redirectToRoute('findObiektyNajmu', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('find/findObiektyNajmu.html.twig', array('form' => $form->createView(), 'obiektynajmu' => $obiektynajmu, 'ok' => false));
         }
 
         /**
          * @Route("/WyswietlOsoby", name="showOsoby")
          * @Method({"GET"})
          */
-        public function showOsoby(){
+        public function showOsoby(Request $request){
             $osoby = $this->getDoctrine()->getRepository(Osoby::class)->findAll();
-            return $this->render('showOsoby.html.twig', array('osoby' => $osoby));
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);;
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showOsoby');
+                }
+
+                return $this->redirectToRoute('findOsoby', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('showOsoby.html.twig', array('form' => $form->createView(), 'osoby' => $osoby, 'ok' => false));
+        }
+
+        /**
+         * @Route("/WyswietlOsoby/find/{id}", name="findOsoby")
+         * @Method({"GET"})
+         */
+        public function findOsoby(Request $request, $id){
+            $osoby = $this->getDoctrine()->getRepository(Osoby::class)->findByRegex($id);
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showOsoby');
+                }
+
+                return $this->redirectToRoute('findOsoby', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('find/findOsoby.html.twig', array('form' => $form->createView(), 'osoby' => $osoby, 'ok' => false));
         }
 
         /**
          * @Route("/WyswietlSpoldzielnie", name="showSpoldzielnie")
          * @Method({"GET"})
          */
-        public function showSpoldzielnie(){
+        public function showSpoldzielnie(Request $request){
             $spoldzielnie = $this->getDoctrine()->getRepository(Spoldzielnie::class)->findAll();
-            return $this->render('showSpoldzielnie.html.twig', array('spoldzielnie' => $spoldzielnie));
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);;
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showSpoldzielnie');
+                }
+
+                return $this->redirectToRoute('findSpoldzielnie', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('showSpoldzielnie.html.twig', array('form' => $form->createView(), 'spoldzielnie' => $spoldzielnie, 'ok' => false));
+        }
+
+        /**
+         * @Route("/WyswietlSpoldzielnie/find/{id}", name="findSpoldzielnie")
+         * @Method({"GET"})
+         */
+        public function findSpoldzielnie(Request $request, $id){
+            $spoldzielnie = $this->getDoctrine()->getRepository(Spoldzielnie::class)->findByRegex($id);
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showSpoldzielnie');
+                }
+
+                return $this->redirectToRoute('findSpoldzielnie', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('find/findSpoldzielnie.html.twig', array('form' => $form->createView(), 'spoldzielnie' => $spoldzielnie, 'ok' => false));
         }
 
         /**
          * @Route("/WyswietlBudynki", name="showBudynki")
          * @Method({"GET"})
          */
-        public function showBudynki(){
+        public function showBudynki(Request $request){
             $budynki = $this->getDoctrine()->getRepository(Budynki::class)->findAll();
-            return $this->render('showBudynki.html.twig', array('budynki' => $budynki));
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);;
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showBudynki');
+                }
+
+                return $this->redirectToRoute('findBudynki', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('showBudynki.html.twig', array('form' => $form->createView(), 'budynki' => $budynki, 'ok' => false));
+        }
+
+        /**
+         * @Route("/WyswietlBudynki/find/{id}", name="findBudynki")
+         * @Method({"GET"})
+         */
+        public function findBudynki(Request $request, $id){
+            $budynki = $this->getDoctrine()->getRepository(Budynki::class)->findByRegex($id);
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showBudynki');
+                }
+
+                return $this->redirectToRoute('findBudynki', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('find/findBudynki.html.twig', array('form' => $form->createView(), 'budynki' => $budynki, 'ok' => false));
         }
 
         /**
          * @Route("/WyswietlWyposazenie", name="showWyposazenie")
          * @Method({"GET"})
          */
-        public function showWyposazenie(){
+        public function showWyposazenie(Request $request){
             $wyposazenie = $this->getDoctrine()->getRepository(Wyposazenie::class)->findAll();
-            return $this->render('showWyposazenie.html.twig', array('wyposazenie' => $wyposazenie));
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showWyposazenie');
+                }
+
+                return $this->redirectToRoute('findWyposazenie', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('showWyposazenie.html.twig', array('form' => $form->createView(), 'wyposazenie' => $wyposazenie, 'ok' => false));
+        }
+
+        /**
+         * @Route("/WyswietlWyposazenie/find/{id}", name="findWyposazenie")
+         * @Method({"GET"})
+         */
+        public function findWyposazenie(Request $request, $id){
+            $wyposazenie = $this->getDoctrine()->getRepository(Wyposazenie::class)->findByRegex($id);
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showWyposazenie');
+                }
+
+                return $this->redirectToRoute('findWyposazenie', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('find/findWyposazenie.html.twig', array('form' => $form->createView(), 'wyposazenie' => $wyposazenie, 'ok' => false));
         }
 
         /**
          * @Route("/WyswietlZwierzeta", name="showZwierzeta")
          * @Method({"GET"})
          */
-        public function showZwierzeta(){
+        public function showZwierzeta(Request $request){
             $zwierzeta = $this->getDoctrine()->getRepository(Zwierzeta::class)->findAll();
-            return $this->render('showZwierzeta.html.twig', array('zwierzeta' => $zwierzeta));
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showZwierzeta');
+                }
+
+                return $this->redirectToRoute('findZwierzeta', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('showZwierzeta.html.twig', array('form' => $form->createView(), 'zwierzeta' => $zwierzeta, 'ok' => false));
+        }
+
+        /**
+         * @Route("/WyswietlZwierzeta/find/{id}", name="findZwierzeta")
+         * @Method({"GET"})
+         */
+        public function findZwierzeta(Request $request, $id){
+            $zwierzeta = $this->getDoctrine()->getRepository(Zwierzeta::class)->findByRegex($id);
+
+            $szukaj = new Wyszukiwanie();
+            $form = $this->createForm(WyszukiwanieFormType::class, $szukaj);
+  
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $szukaj = $form->getData();
+
+                if($szukaj->getAnswer()=="")
+                {
+                    return $this->redirectToRoute('showZwierzeta');
+                }
+
+                return $this->redirectToRoute('findZwierzeta', ['id' => $szukaj->getAnswer()]);
+            }
+            
+            return $this->render('find/findZwierzeta.html.twig', array('form' => $form->createView(), 'zwierzeta' => $zwierzeta, 'ok' => false));
         }
 
         /**
@@ -110,7 +413,7 @@
             $lokatorzy = $this->getDoctrine()->getRepository(Osoby::class)->find($umowy->getLokator());
             $wynajmujacy = $this->getDoctrine()->getRepository(Osoby::class)->find($umowy->getWynajmujacy());
             $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->find($umowy->getMieszkanie());
-            $zwierzeta = $this->getDoctrine()->getRepository(Zwierzeta::class)->findby(array('Id_umowy' => $umowy->getId()));
+            $zwierzeta = $this->getDoctrine()->getRepository(Zwierzeta::class)->findBy(array('Id_umowy' => $umowy->getId()));
             return $this->render('showdetailedUmowy.html.twig', array('umowy' => $umowy, 'lokatorzy' => $lokatorzy,  'wynajmujacy' => $wynajmujacy, 'obiektynajmu' => $obiektynajmu, 'zwierzeta' => $zwierzeta));
         }
 
@@ -121,7 +424,7 @@
             $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->find($id);
             $budynek = $this->getDoctrine()->getRepository(Budynki::class)->find($obiektynajmu->getAdres());
             $spoldzielnie = $this->getDoctrine()->getRepository(Spoldzielnie::class)->find($budynek->getNazwa());
-            $umowy = $this->getDoctrine()->getRepository(Umowy::class)->find($obiektynajmu->getNrMieszkania());
+            $umowy = $this->getDoctrine()->getRepository(Umowy::class)->findBy(array('Mieszkanie' => $obiektynajmu->getMieszkanie()));
             $wyposazenia = $this->getDoctrine()->getRepository(Wyposazenie::class)->findBy(array('Mieszkanie' => $obiektynajmu->getNrMieszkania()));
             return $this->render('showdetailedObiektyNajmu.html.twig', array('obiektynajmu' => $obiektynajmu, 'budynek' => $budynek,  'spoldzielnie' => $spoldzielnie, 'umowy' => $umowy, 'wyposazenia' => $wyposazenia));
         }
@@ -187,7 +490,10 @@
                 return $this->redirectToRoute('showUmowy');
             }
 
-            $this->getDoctrine()->getRepository(Umowy::class)->deleteRozwiaz_umowy($umowa->getNrumowy());
+            if($umowa != null)
+                $this->getDoctrine()->getRepository(Umowy::class)->deleteRozwiaz_umowy($umowa->getNrumowy());
+            else
+                $this->addFlash('error', 'Ten obiekt nie istnieje w bazie danych! Nie możesz go usunąć.');
 
             $this->addFlash('success', 'Pomyślnie usunięto umowę z bazy danych!');
   

@@ -108,34 +108,40 @@
     <h1>Umowa</h1>
 
     {% if umowy %}
+    {% set i = 1 %}
+    {% for umowa in umowy %}
         <table id="umowa" class="table table-striped">
         <thead>
             <tr>
+                <th>Umowa {{ i }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>Numer umowy:</td>
-                <td>{{ umowy.getNrumowy() }}</td>
+                <td>{{ umowa.getNrumowy() }}</td>
             </tr>
             <tr>
                 <td>Wynajem od:</td>
-                <td>{{ umowy.getWynajemod()|format_datetime('full', 'none', locale='pl') }}</td>
+                <td>{{ umowa.getWynajemod()|format_datetime('full', 'none', locale='pl') }}</td>
             </tr>
             <tr>
                 <td>Wynajem do:</td>
-                <td>{{ umowy.getWynajemdo()|format_datetime('full', 'none', locale='pl') }}</td>
+                <td>{{ umowa.getWynajemdo()|format_datetime('full', 'none', locale='pl') }}</td>
             </tr>
             <tr>
                 <td>Data zawrcia umowy:</td>
-                <td>{{ umowy.getDatazawarciaumowy()|format_datetime('full', 'none', locale='pl') }}</td>
+                <td>{{ umowa.getDatazawarciaumowy()|format_datetime('full', 'none', locale='pl') }}</td>
             </tr>
             <tr>
                 <td>Rodzaj umowy:</td>
-                <td>{{ umowy.getRodzajumowy() }}</td>
+                <td>{{ umowa.getRodzajumowy() }}</td>
             </tr>
         </tbody>
         </table>
+    {% set i = i + 1 %}
+    {% endfor %}
     {% else %}
         <p>Brak umów do wyświetlenia</p>
     {% endif %}

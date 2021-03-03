@@ -19,6 +19,20 @@ class BudynkiRepository extends ServiceEntityRepository
         parent::__construct($registry, Budynki::class);
     }
 
+    public function findByRegex(string $regex)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            select * from budynki where adres = :regex or 
+            typ = :regex
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['regex' => $regex]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Budynki[] Returns an array of Budynki objects
     //  */

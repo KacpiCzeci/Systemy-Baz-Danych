@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Osoby{% endblock %}
+{% block title %}Zwierzęta{% endblock %}
 
 {% block body %}
     <div class="cointainer">
@@ -35,36 +35,34 @@
 
 <div class="container">
 <h1></h1>
-                <a href="/sbd-projekt/public/NowaOsoba" class="btn btn-primary btn-lg" role="button">Dodaj</a>
+                <a href="/sbd-projekt/public/NoweZwierze" class="btn btn-primary btn-lg" role="button">Dodaj</a>
                 <a href="javascript:history.back()" class="btn btn-primary btn-lg">Cofnij</a>
 
-                {% if osoby %}
+                {% if zwierzeta %}
                     <table id="umowy" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>PESEL</th>
-                                <th>Opcje</th>
-                            </tr>
-                        </thead>
+                    <thead>
+                    <tr>
+                        <th>Zwierzęta</th>
+                        <th>Umowa</th>
+                        <th>Opcje</th>
+                    </tr>
+                    </thead>
                     <tbody>
-                    {% for osoba in osoby %}
+                    {% for zwierze in zwierzeta %}
                         <tr>
-                            <td>{{ osoba.getImie() }}</td>
-                            <td>{{ osoba.getNazwisko() }}</td>
-                            <td>{{ osoba.getPESEL() }}</td>
+                            <td>{{ zwierze.gatunek }}</td>
+                            <td>{{ zwierze.nr_umowy }}</td>
                             <td>
-                                <a href="/sbd-projekt/public/WyswietlOsoby/{{ osoba.getPESEL() }}" class="btn btn-dark">Szczegóły</a>
-                                <a href="/sbd-projekt/public/WyswietlOsoby/edit/{{ osoba.getPESEL() }}" class="btn btn-secondary">Edytuj</a>
-                                <a href="/sbd-projekt/public/WyswietlOsoby/delete/{{ osoba.getPESEL() }}" class="btn btn-danger">Usuń</a>
-                            </td>
+                            <a href="/sbd-projekt/public/WyswietlZwierzeta/{{ zwierze.zid }}" class="btn btn-dark">Szczegóły</a>
+                            <a href="/sbd-projekt/public/WyswietlZwierzeta/edit/{{ zwierze.zid }}" class="btn btn-secondary">Edytuj</a>
+                            <a href="/sbd-projekt/public/WyswietlZwierzeta/delete/{{ zwierze.zid }}" class="btn btn-danger">Usuń</a>
+                        </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                     </table>
                 {% else %}
-                    <p>Brak osób do wyświetlenia</p>
+                    <p>Brak zwierząt do wyświetlenia</p>
                 {% endif %}
             </div>
 {% endblock %}

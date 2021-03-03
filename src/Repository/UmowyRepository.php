@@ -30,6 +30,20 @@ class UmowyRepository extends ServiceEntityRepository
         $stmt->execute(['id_umowy' => $id_umowy]);
     }
 
+    public function findByRegex(string $regex)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        select * from umowy where nr_umowy = :regex or
+        rodzaj_umowy = :regex
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['regex' => $regex]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Umowy[] Returns an array of Umowy objects
     //  */

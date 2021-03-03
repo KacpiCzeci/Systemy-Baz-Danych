@@ -4,9 +4,6 @@
 
 {% block body %}
     <div class="cointainer">
-        <div class="row">
-            <div class="col">
-
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success alert-dismissible p-3 fade show" role="alert">
                         <h1></h1>
@@ -22,9 +19,23 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 {% endfor %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
 
+                {{ form_start(form) }}
+                {{ form_widget(form.Answer) }}
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+<div class="container">
+<h1></h1>
                 <a href="/sbd-projekt/public/NoweZwierze" class="btn btn-primary btn-lg" role="button">Dodaj</a>
-                <a href="/sbd-projekt/public" class="btn btn-primary btn-lg" role="button">Cofnij</a>
+                <a href="javascript:history.back()" class="btn btn-primary btn-lg">Cofnij</a>
 
                 {% if zwierzeta %}
                     <table id="umowy" class="table table-striped">
@@ -39,7 +50,7 @@
                     {% for zwierze in zwierzeta %}
                         <tr>
                             <td>{{ zwierze.getGatunek() }}</td>
-                            <td>Nr. {{ zwierze.getIdUmowy() }}</td>
+                            <td>{{ zwierze.getIdUmowy() }}</td>
                             <td>
                             <a href="/sbd-projekt/public/WyswietlZwierzeta/{{ zwierze.getId() }}" class="btn btn-dark">Szczegóły</a>
                             <a href="/sbd-projekt/public/WyswietlZwierzeta/edit/{{ zwierze.getId() }}" class="btn btn-secondary">Edytuj</a>
@@ -53,6 +64,4 @@
                     <p>Brak zwierząt do wyświetlenia</p>
                 {% endif %}
             </div>
-        </div>
-    </div>
 {% endblock %}

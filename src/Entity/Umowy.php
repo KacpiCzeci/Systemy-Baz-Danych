@@ -67,7 +67,7 @@ class Umowy
 
     public function __toString()
     {
-        return $this->getNrUmowy();
+        return $this->getNrumowy();
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)

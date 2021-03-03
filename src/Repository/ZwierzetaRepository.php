@@ -19,6 +19,20 @@ class ZwierzetaRepository extends ServiceEntityRepository
         parent::__construct($registry, Zwierzeta::class);
     }
 
+    public function findByRegex(string $regex)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            select z.id as zid, u.id as uid, z.gatunek, u.nr_umowy from zwierzeta z join umowy u on z.id_umowy = u.id where z.gatunek = :regex or 
+            u.nr_umowy = :regex
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['regex' => $regex]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Zwierzeta[] Returns an array of Zwierzeta objects
     //  */

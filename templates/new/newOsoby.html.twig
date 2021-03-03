@@ -76,11 +76,7 @@
                 {% endif %}
                 <h1></h1>
                 <button class="btn btn-primary btn-lg" type="submit">Zatwierdź</button>
-                {% if ok %}
-                    <a href="/sbd-projekt/public/WyswietlOsoby" class="btn btn-primary btn-lg" role="button">Cofnij</a>
-                {% else %}
-                    <a href="/sbd-projekt/public" class="btn btn-primary btn-lg" role="button">Cofnij</a>
-                {% endif %}
+                <a href="javascript:history.back()" class="btn btn-primary btn-lg">Cofnij</a>
             </div>
             {{ form_end(form) }}
         </div>

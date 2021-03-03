@@ -51,13 +51,13 @@
                     <tbody>
                     {% for osoba in osoby %}
                         <tr>
-                            <td>{{ osoba.getImie() }}</td>
-                            <td>{{ osoba.getNazwisko() }}</td>
-                            <td>{{ osoba.getPESEL() }}</td>
+                            <td>{{ osoba.imie }}</td>
+                            <td>{{ osoba.nazwisko }}</td>
+                            <td>{{ osoba.pesel }}</td>
                             <td>
-                                <a href="/sbd-projekt/public/WyswietlOsoby/{{ osoba.getPESEL() }}" class="btn btn-dark">Szczegóły</a>
-                                <a href="/sbd-projekt/public/WyswietlOsoby/edit/{{ osoba.getPESEL() }}" class="btn btn-secondary">Edytuj</a>
-                                <a href="/sbd-projekt/public/WyswietlOsoby/delete/{{ osoba.getPESEL() }}" class="btn btn-danger">Usuń</a>
+                                <a href="/sbd-projekt/public/WyswietlOsoby/{{ osoba.pesel }}" class="btn btn-dark">Szczegóły</a>
+                                <a href="/sbd-projekt/public/WyswietlOsoby/edit/{{ osoba.pesel }}" class="btn btn-secondary">Edytuj</a>
+                                <a href="/sbd-projekt/public/WyswietlOsoby/delete/{{ osoba.pesel }}" class="btn btn-danger">Usuń</a>
                             </td>
                         </tr>
                     {% endfor %}

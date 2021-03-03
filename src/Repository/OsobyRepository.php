@@ -32,6 +32,21 @@ class OsobyRepository extends ServiceEntityRepository
         return $stmt->fetchOne();
     }
 
+    public function findByRegex(string $regex)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            select * from osoby where imie = :regex or 
+            nazwisko = :regex or
+            pesel = :regex
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['regex' => $regex]);
+
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Osoby[] Returns an array of Osoby objects
     //  */
