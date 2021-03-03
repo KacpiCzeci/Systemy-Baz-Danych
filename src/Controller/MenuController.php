@@ -61,7 +61,12 @@
                     return $this->redirectToRoute('showUmowy');
                 }
 
-                return $this->redirectToRoute('findUmowy', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showUmowy');
+                }
+                else
+                    return $this->redirectToRoute('findUmowy', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('showUmowy.html.twig', array('form' => $form->createView(), 'umowy' => $umowy, 'ok' => false));
@@ -87,7 +92,12 @@
                     return $this->redirectToRoute('showUmowy');
                 }
 
-                return $this->redirectToRoute('findUmowy', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showUmowy');
+                }
+                else
+                    return $this->redirectToRoute('findUmowy', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('find/findUmowy.html.twig', array('form' => $form->createView(), 'umowy' => $umowy, 'ok' => false));
@@ -105,6 +115,7 @@
   
             $form->handleRequest($request);
 
+
             if($form->isSubmitted() && $form->isValid()){
                 $szukaj = $form->getData();
 
@@ -113,7 +124,12 @@
                     return $this->redirectToRoute('showObiektyNajmu');
                 }
 
-                return $this->redirectToRoute('findObiektyNajmu', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showObiektyNajmu');
+                }
+                else
+                    return $this->redirectToRoute('findObiektyNajmu', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('showObiektyNajmu.html.twig', array('form' => $form->createView(), 'obiektynajmu' => $obiektynajmu, 'ok' => false));
@@ -139,7 +155,12 @@
                     return $this->redirectToRoute('showObiektyNajmu');
                 }
 
-                return $this->redirectToRoute('findObiektyNajmu', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showObiektyNajmu');
+                }
+                else
+                    return $this->redirectToRoute('findObiektyNajmu', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('find/findObiektyNajmu.html.twig', array('form' => $form->createView(), 'obiektynajmu' => $obiektynajmu, 'ok' => false));
@@ -165,7 +186,12 @@
                     return $this->redirectToRoute('showOsoby');
                 }
 
-                return $this->redirectToRoute('findOsoby', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showOsoby');
+                }
+                else
+                    return $this->redirectToRoute('findOsoby', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('showOsoby.html.twig', array('form' => $form->createView(), 'osoby' => $osoby, 'ok' => false));
@@ -191,7 +217,12 @@
                     return $this->redirectToRoute('showOsoby');
                 }
 
-                return $this->redirectToRoute('findOsoby', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showOsoby');
+                }
+                else
+                    return $this->redirectToRoute('findOsoby', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('find/findOsoby.html.twig', array('form' => $form->createView(), 'osoby' => $osoby, 'ok' => false));
@@ -217,7 +248,12 @@
                     return $this->redirectToRoute('showSpoldzielnie');
                 }
 
-                return $this->redirectToRoute('findSpoldzielnie', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showSpoldzielnie');
+                }
+                else
+                    return $this->redirectToRoute('findSpoldzielnie', ['id' => $szukaj->getAnswer()]); 
             }
             
             return $this->render('showSpoldzielnie.html.twig', array('form' => $form->createView(), 'spoldzielnie' => $spoldzielnie, 'ok' => false));
@@ -243,7 +279,12 @@
                     return $this->redirectToRoute('showSpoldzielnie');
                 }
 
-                return $this->redirectToRoute('findSpoldzielnie', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showSpoldzielnie');
+                }
+                else
+                    return $this->redirectToRoute('findSpoldzielnie', ['id' => $szukaj->getAnswer()]); 
             }
             
             return $this->render('find/findSpoldzielnie.html.twig', array('form' => $form->createView(), 'spoldzielnie' => $spoldzielnie, 'ok' => false));
@@ -269,7 +310,12 @@
                     return $this->redirectToRoute('showBudynki');
                 }
 
-                return $this->redirectToRoute('findBudynki', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showBudynki');
+                }
+                else
+                    return $this->redirectToRoute('findBudynki', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('showBudynki.html.twig', array('form' => $form->createView(), 'budynki' => $budynki, 'ok' => false));
@@ -295,7 +341,12 @@
                     return $this->redirectToRoute('showBudynki');
                 }
 
-                return $this->redirectToRoute('findBudynki', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showBudynki');
+                }
+                else
+                    return $this->redirectToRoute('findBudynki', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('find/findBudynki.html.twig', array('form' => $form->createView(), 'budynki' => $budynki, 'ok' => false));
@@ -321,7 +372,12 @@
                     return $this->redirectToRoute('showWyposazenie');
                 }
 
-                return $this->redirectToRoute('findWyposazenie', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showWyposazenie');
+                }
+                else
+                    return $this->redirectToRoute('findWyposazenie', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('showWyposazenie.html.twig', array('form' => $form->createView(), 'wyposazenie' => $wyposazenie, 'ok' => false));
@@ -347,7 +403,12 @@
                     return $this->redirectToRoute('showWyposazenie');
                 }
 
-                return $this->redirectToRoute('findWyposazenie', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showWyposazenie');
+                }
+                else
+                    return $this->redirectToRoute('findWyposazenie', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('find/findWyposazenie.html.twig', array('form' => $form->createView(), 'wyposazenie' => $wyposazenie, 'ok' => false));
@@ -373,7 +434,12 @@
                     return $this->redirectToRoute('showZwierzeta');
                 }
 
-                return $this->redirectToRoute('findZwierzeta', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showZwierzeta');
+                }
+                else
+                    return $this->redirectToRoute('findZwierzeta', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('showZwierzeta.html.twig', array('form' => $form->createView(), 'zwierzeta' => $zwierzeta, 'ok' => false));
@@ -398,8 +464,12 @@
                 {
                     return $this->redirectToRoute('showZwierzeta');
                 }
-
-                return $this->redirectToRoute('findZwierzeta', ['id' => $szukaj->getAnswer()]);
+                if(strpos($szukaj->getAnswer(),'/') !== false or strpos($szukaj->getAnswer(),'\\') !== false) {
+                    $this->addFlash('error', 'Niedozwolone znaki.');
+                    return $this->redirectToRoute('showZwierzeta');
+                }
+                else
+                    return $this->redirectToRoute('findZwierzeta', ['id' => $szukaj->getAnswer()]);
             }
             
             return $this->render('find/findZwierzeta.html.twig', array('form' => $form->createView(), 'zwierzeta' => $zwierzeta, 'ok' => false));
@@ -473,7 +543,7 @@
         public function showdetailedBudynki($id){
             $budynki = $this->getDoctrine()->getRepository(Budynki::class)->find($id);
             $spoldzielnie = $this->getDoctrine()->getRepository(Spoldzielnie::class)->find($budynki->getNazwa());
-            $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->findby(array('Adres' => $spoldzielnie->getAdres()));
+            $obiektynajmu = $this->getDoctrine()->getRepository(ObiektyNajmu::class)->findby(array('Adres' => $budynki->getAdres()));
             return $this->render('showdetailedBudynki.html.twig', array('budynki' => $budynki, 'spoldzielnie' => $spoldzielnie, 'obiektynajmu' => $obiektynajmu));
         }
 
