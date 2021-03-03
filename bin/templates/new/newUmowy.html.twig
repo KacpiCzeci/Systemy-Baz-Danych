@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{ form_start(form) }}
+                {% if nazwa is defined %}
+                    <h1>{{ nazwa }}</h1>
+                {% endif %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger alert-dismissible p-3 fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible p-3 fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+                <h1></h1>
+                <h5>Numer umowy</h5>
+                {{ form_widget(form.Nr_umowy) }}
+                {% if form.Nr_umowy.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Nr_umowy) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Wynajem od</h5>
+                {{ form_widget(form.Wynajem_od) }}
+                {% if form.Wynajem_od.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Wynajem_od) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Wynajem do</h5>
+                {{ form_widget(form.Wynajem_do) }}
+                {% if form.Wynajem_do.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Wynajem_do) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Data zawarcia umowy</h5>
+                {{ form_widget(form.Data_zawarcia_umowy) }}
+                {% if form.Data_zawarcia_umowy.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Data_zawarcia_umowy) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Rodzaj umowy</h5>
+                {{ form_widget(form.Rodzaj_umowy) }}
+                {% if form.Rodzaj_umowy.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Rodzaj_umowy) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Lokator</h5>
+                {{ form_widget(form.Lokator) }}
+                {% if form.Lokator.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Lokator) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Wynajmujący</h5>
+                {{ form_widget(form.Wynajmujacy) }}
+                {% if form.Wynajmujacy.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Wynajmujacy) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h5>Adres mieszkania</h5>
+                {{ form_widget(form.Mieszkanie) }}
+                {% if form.Mieszkanie.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Mieszkanie) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <button class="btn btn-primary btn-lg" type="submit">Zatwierdź</button>
+                {% if ok %}
+                    <a href="/sbd-projekt/public/WyswietlUmowy" class="btn btn-primary btn-lg" role="button">Cofnij</a>
+                {% else %}
+                    <a href="/sbd-projekt/public" class="btn btn-primary btn-lg" role="button">Cofnij</a>
+                {% endif %}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Umowy{% endblock %}
+
+{% block body %}
+    <div class="cointainer">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible p-3 fade show" role="alert">
+                        <h1></h1>
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger alert-dismissible p-3 fade show" role="alert">
+                        <h1></h1>
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+    </div>
+
+   <div class="container">
+        <div class="row">
+            <div class="col">
+
+                {{ form_start(form) }}
+                {{ form_widget(form.Answer) }}
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+<div class="container">
+<h1></h1>
+
+                <a href="/sbd-projekt/public/NowaUmowa" class="btn btn-primary btn-lg" role="button">Dodaj</a>
+                <a href="javascript:history.back()" class="btn btn-primary btn-lg">Cofnij</a>
+
+                {% if umowy %}
+                    <table id="umowy" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Umowa</th>
+                            <th>Rodzaj umowy</h>
+                            <th>Opcje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for umowa in umowy %}
+                        <tr>
+                            <td>{{ umowa.getNrumowy() }}</td>
+                            <td>{{ umowa.getRodzajUmowy() }}</td>
+                            <td>
+                                <a href="/sbd-projekt/public/WyswietlUmowy/{{ umowa.getId() }}" class="btn btn-dark">Szczegóły</a>
+                                <a href="/sbd-projekt/public/WyswietlUmowy/edit/{{ umowa.getId() }}" class="btn btn-secondary">Edytuj</a>
+                                <a href="/sbd-projekt/public/WyswietlUmowy/delete/{{ umowa.getId() }}" class="btn btn-danger">Usuń</a>
+                            </td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+                {% else %}
+                    <p>Brak umów do wyświetlenia</p>
+                {% endif %}
+            </div>
+{% endblock %}
+

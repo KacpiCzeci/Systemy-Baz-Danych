@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+<a href="javascript:history.back()" class="btn btn-primary btn-lg">Cofnij</a>
+</h1></h1>
+<h1>Wyposażenie</h1>
+
+    {% if wyposazenie %}
+        <table id="lokator" class="table table-striped">
+        <thead>
+            <tr>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nazwa:</td>
+                <td>{{ wyposazenie.getNazwa() }}</td>
+            </tr>
+            <tr>
+                <td>Ilość:</td>
+                <td>{{ wyposazenie.getIlosc() }}</td>
+            </tr>
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak wyposażenia do wyświetlenia</p>
+    {% endif %}
+
+    <h1>Obiekt najmu</h1>
+
+    {% if obiektynajmu %}
+        <table id="lokator" class="table table-striped">
+        <thead>
+            <tr>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Rodzaj obiektu:</td>
+                <td>{{ obiektynajmu.getRodzajObiektu() }}</td>
+            </tr>
+            <tr>
+                <td>Powierzchnia:</td>
+                <td>{{ obiektynajmu.getPowierzchnia() }}</td>
+            </tr>
+            <tr>
+                <td>Liczba pokoi:</td>
+                <td>{{ obiektynajmu.getLiczbaPokoi() }}</td>
+            </tr>
+            <tr>
+                <td>Typ mieszkania:</td>
+                <td>{{ obiektynajmu.getTypMieszkania() }}</td>
+            </tr>
+            <tr>
+                <td>Numer pokoju:</td>
+                <td>{{ obiektynajmu.getNrPokoju() }}</td>
+            </tr>
+                        <tr>
+                <td>Numer mieszkania:</td>
+                <td>{{ obiektynajmu.getNrMieszkania() }}</td>
+            </tr>
+            <tr>
+                <td>Adres:</td>
+                <td>{{ obiektynajmu.getAdres() }}</td>
+            </tr>
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak obiektów najmu do wyświetlenia</p>
+    {% endif %}
+</div>
+</div>
+</div>
+{% endblock %}

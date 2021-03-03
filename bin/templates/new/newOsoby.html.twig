@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{ form_start(form) }}
+                {% if nazwa is defined %}
+                    <h1>{{ nazwa }}</h1>
+                {% endif %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger alert-dismissible p-3 fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible p-3 fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+                <h1></h1>
+                <h5>PESEL</h5>
+                {{ form_widget(form.PESEL) }}
+                {% if form.PESEL.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.PESEL) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Imie</h5>
+                {{ form_widget(form.Imie) }}
+                {% if form.Imie.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Imie) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Nazwisko</h5>
+                {{ form_widget(form.Nazwisko) }}
+                {% if form.Nazwisko.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Nazwisko) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Numer telefonu</h5>
+                {{ form_widget(form.Nr_telefonu) }}
+                {% if form.Nr_telefonu.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Nr_telefonu) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Adres</h5>
+                {{ form_widget(form.Adres) }}
+                {% if form.Adres.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Adres) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <h5>Email</h5>
+                {{ form_widget(form.Email) }}
+                {% if form.Email.vars.errors|length %}
+                    <div class="alert alert-danger alert-dismissible p-1 fade show" role="alert">
+                        {{ form_errors(form.Email) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                <h1></h1>
+                <button class="btn btn-primary btn-lg" type="submit">Zatwierdź</button>
+                <a href="javascript:history.back()" class="btn btn-primary btn-lg">Cofnij</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

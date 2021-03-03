@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+<a href="javascript:history.back()" class="btn btn-primary btn-lg">Cofnij</a>
+</h1></h1>
+<h1>Zwierzęta</h1>
+
+    {% if zwierzeta %}
+        <table id="lokator" class="table table-striped">
+        <thead>
+            <tr>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Gatunek:</td>
+                <td>{{ zwierzeta.getGatunek() }}</td>
+            </tr>
+            <tr>
+                <td>Ilość:</td>
+                <td>{{ zwierzeta.getIlosc() }}</td>
+            </tr>
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak zwierząt do wyświetlenia</p>
+    {% endif %}
+    
+    <h1>Umowa</h1>
+
+    {% if umowy %}
+        <table id="umowa" class="table table-striped">
+        <thead>
+            <tr>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Numer umowy:</td>
+                <td>{{ umowy.getNrumowy() }}</td>
+            </tr>
+            <tr>
+                <td>Wynajem od:</td>
+                <td>{{ umowy.getWynajemod()|format_datetime('full', 'none', locale='pl') }}</td>
+            </tr>
+            <tr>
+                <td>Wynajem do:</td>
+                <td>{{ umowy.getWynajemdo()|format_datetime('full', 'none', locale='pl') }}</td>
+            </tr>
+            <tr>
+                <td>Data zawrcia umowy:</td>
+                <td>{{ umowy.getDatazawarciaumowy()|format_datetime('full', 'none', locale='pl') }}</td>
+            </tr>
+            <tr>
+                <td>Rodzaj umowy:</td>
+                <td>{{ umowy.getRodzajumowy() }}</td>
+            </tr>
+        </tbody>
+        </table>
+    {% else %}
+        <p>Brak umów do wyświetlenia</p>
+    {% endif %}
+</div>
+</div>
+</div>
+{% endblock %}
